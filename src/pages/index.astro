@@ -24,7 +24,7 @@ import { Projects } from "../i18n/ui";
           {
             title: "Languages",
             desc: "I am skilled in HTML, CSS, JavaScript, and TypeScript, and have used them to develop web applications and user interfaces. I also have some experience with C and Python for specific projects.",
-            skills: [sk.html, sk.css, sk.js, sk.ts],
+            skills: [sk.html, sk.css, sk.js, sk.ts, sk.go],
           },
           {
             title: "Front-End",
@@ -86,10 +86,11 @@ import { Projects } from "../i18n/ui";
       </div>
       <ProjectsList client:only projectList={Projects} />
     </section>
+
     <!-- ABOUT -->
-    <!-- <section class="custom-screen">
-		<About />
-	</section> -->
+    <section class="custom-screen">
+      <About />
+    </section>
 
     <!-- Form -->
     <section class="custom-screen py-16 lg:py-24" id="contact">
@@ -106,6 +107,6 @@ import { Projects } from "../i18n/ui";
       </div>
     </section>
   </main>
-</Layout>
 
-<style></style>
+  <style></style>
+</Layout>
