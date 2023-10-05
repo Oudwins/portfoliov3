@@ -1,3 +1,6 @@
+# images build output
+/public/images
+
 # build output
 dist/
 

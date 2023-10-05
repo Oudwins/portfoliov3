@@ -1,81 +1,111 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import Layout from "../layouts/Layout.astro";
+import {
+  Hero,
+  SkillSection,
+  About,
+  ContactForm,
+} from "../components/pages/index";
+// import Project from "../components/ui/Project";
+import ProjectsList from "../components/ui/ProjectsList";
+import { SkillList as sk } from "../i18n/ui";
+
+import { Projects } from "../i18n/ui";
 ---
 
-<Layout title="Welcome to Astro.">
-	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
-	</main>
+<Layout>
+  <main class="">
+    <!-- HERO -->
+    <Hero />
+    <!-- SKILLS -->
+    <section class="py-16 custom-screen" id="skills">
+      <SkillSection
+        slides={[
+          {
+            title: "Languages",
+            desc: "I am skilled in HTML, CSS, JavaScript, and TypeScript, and have used them to develop web applications and user interfaces. I also have some experience with C and Python for specific projects.",
+            skills: [sk.html, sk.css, sk.js, sk.ts],
+          },
+          {
+            title: "Front-End",
+            desc: "I have expertise in front-end frameworks and libraries such as Tailwind CSS, ReactJS, NextJS, NuxtJS, and AstroJS. I use these tools to create high-performance web applications and user interfaces that deliver dynamic and engaging experiences for clients.",
+            skills: [
+              sk.tailwind,
+              sk.bootstrap,
+              sk.react,
+              sk.next,
+              sk.vue,
+              sk.nuxt,
+              sk.astro,
+            ],
+          },
+          {
+            title: "Back-End",
+            desc: "On the backend, I specialize in technologies such as NodeJS, Express, NextJS, NuxtJS, MongoDB, MySQL, tRPC, and Prisma. These tools allow me to build scalable and efficient server-side applications and databases that meet the needs of clients.",
+            skills: [
+              sk.nodejs,
+              sk.express,
+              sk.next,
+              sk.nuxt,
+              sk.mongodb,
+              sk.mysql,
+              sk.trpc,
+              sk.prisma,
+            ],
+          },
+          {
+            title: "Dev-ops",
+            desc: "I have experience using DevOps technologies such as Linux servers, Ansible, and Nginx to automate application deployment and ensure server stability and security. Though I am still growing in this area, I can efficiently manage application deployments and server maintenance using these tools.",
+            skills: [sk.linuxServer, sk.nginx, sk.ansible],
+          },
+          {
+            title: "Other",
+            desc: "I am proficient in Git, Linux, WordPress, Figma, and Photoshop, which support my work as a developer. These tools enable me to track changes, work efficiently, create and manage websites, and design user interfaces and other graphics.",
+            skills: [
+              sk.git,
+              sk.linuxUser,
+              sk.wordpress,
+              sk.figma,
+              sk.photoshop,
+            ],
+          },
+        ]}
+        client:load
+      />
+    </section>
+    <!-- PROJECTS -->
+    <section class="custom-screen" id="projects">
+      <div class="py-5">
+        <h2
+          class="text-center uppercase text-3xl font-bold sm:text-4xl md:text-5xl"
+        >
+          <span class="text-indigo-700 border-l-4 border-indigo-700 pl-2"
+            >Pro</span
+          >jects
+        </h2>
+      </div>
+      <ProjectsList client:only projectList={Projects} />
+    </section>
+    <!-- ABOUT -->
+    <!-- <section class="custom-screen">
+		<About />
+	</section> -->
+
+    <!-- Form -->
+    <section class="custom-screen py-16 lg:py-24" id="contact">
+      <div class="px-5 py-16 shadow space-y-8">
+        <ContactForm
+          formText={{
+            name: "Name",
+            email: "Email Address",
+            phone: "Phone Number",
+            message: "Message",
+            button: "Get in touch",
+          }}
+        />
+      </div>
+    </section>
+  </main>
 </Layout>
 
-<style>
-	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 60ch;
-	}
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.instructions {
-		line-height: 1.6;
-		margin: 1rem 0;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
-		padding: 1rem;
-		border-radius: 0.4rem;
-	}
-	.instructions code {
-		font-size: 0.875em;
-		font-weight: bold;
-		background: rgba(var(--accent), 12%);
-		color: rgb(var(--accent));
-		border-radius: 4px;
-		padding: 0.3em 0.45em;
-	}
-	.instructions strong {
-		color: rgb(var(--accent));
-	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 1rem;
-		padding: 0;
-	}
-</style>
+<style></style>
