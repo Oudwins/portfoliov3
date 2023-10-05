@@ -4,7 +4,7 @@ import { type ReactNode, useState } from "react";
 import type { Categories } from "../../i18n/ui";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/Popover";
 // import Projectimg from "../ui/Projectimg";
-import { ButtonLinkPrimary, ButtonPrimary, ButtonLink } from "../ui/Button";
+import { ButtonLink } from "../ui/Button";
 import Image from "../ui/Image";
 import LoadingSpinner from "./loadingSpinner";
 
@@ -195,6 +195,9 @@ export default function Project({
                   className="absolute top-0 w-full object-cover min-h-full"
                   alt={project.imgs.alt || ""}
                   maxWidth={currentView === "phone" ? 640 : undefined}
+                  onLoad={() => {
+                    setIsloading(false);
+                  }}
                 />
               ) : (
                 <ProjectImage
