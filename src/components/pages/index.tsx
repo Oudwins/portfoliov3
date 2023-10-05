@@ -1,4 +1,4 @@
-import { ButtonLinkPrimary, ButtonPrimary } from "../ui/Button";
+import { ButtonLink, Button } from "../ui/Button";
 import type { Skill } from "../../i18n/ui";
 import { SkillList } from "../ui/Skills";
 
@@ -147,12 +147,12 @@ export const SkillSection = ({
                   <div className="lg:space-y-8">
                     <p className="text-lg">{slide.desc}</p>
                     {slide.btn ? (
-                      <ButtonLinkPrimary
+                      <ButtonLink
                         href={slide.btn.href}
                         className="hidden md:show"
                       >
                         {slide.btn.t}
-                      </ButtonLinkPrimary>
+                      </ButtonLink>
                     ) : (
                       ""
                     )}
@@ -276,12 +276,12 @@ export const ContactForm = ({
         <div className="" data-netlify-recaptcha="true"></div>
 
         <div className="mt-4 flex justify-center items-center">
-          <ButtonPrimary
+          <Button
             className="rounded-lg w-full lg:text-lg lg:w-auto"
             type="submit"
           >
             {formText.button}
-          </ButtonPrimary>
+          </Button>
         </div>
       </form>
     </div>

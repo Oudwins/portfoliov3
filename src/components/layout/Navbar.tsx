@@ -86,12 +86,13 @@ const Navbar = ({
                   if (item.isButton)
                     return (
                       <li key={idx} className="text-center">
-                        <ButtonLinkSecondary
+                        <ButtonLink
+                          variant="secondary"
                           href={item.href}
                           className="mx-auto py-2 px-5"
                         >
                           {item.name}
-                        </ButtonLinkSecondary>
+                        </ButtonLink>
                       </li>
                     );
 
@@ -119,7 +120,7 @@ const Navbar = ({
 };
 
 import Logo from "../utils/Logo";
-import { ButtonLinkSecondary } from "../ui/Button";
+import { ButtonLink } from "../ui/Button";
 
 const NavHeader = ({
   onClick,

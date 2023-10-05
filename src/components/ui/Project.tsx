@@ -4,7 +4,7 @@ import { type ReactNode, useState } from "react";
 import type { Categories } from "../../i18n/ui";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/Popover";
 // import Projectimg from "../ui/Projectimg";
-import { ButtonLinkPrimary, ButtonPrimary } from "../ui/Button";
+import { ButtonLinkPrimary, ButtonPrimary, ButtonLink } from "../ui/Button";
 import Image from "../ui/Image";
 import LoadingSpinner from "./loadingSpinner";
 
@@ -289,14 +289,18 @@ export default function Project({
             </div>
 
             <div className="flex flex-col gap-5 my-8 sm:flex-row">
-              <ButtonLinkPrimary href={project.btns[0].href} target="_blank">
+              <ButtonLink href={project.btns[0].href} target="_blank">
                 {project.btns[0].t}
-              </ButtonLinkPrimary>
+              </ButtonLink>
 
               {project.btns[1] ? (
-                <ButtonLinkPrimary href={project.btns[1].href} target="_blank">
+                <ButtonLink
+                  variant="secondary"
+                  href={project.btns[1].href}
+                  target="_blank"
+                >
                   {project.btns[1].t}
-                </ButtonLinkPrimary>
+                </ButtonLink>
               ) : (
                 ""
               )}
