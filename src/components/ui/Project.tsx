@@ -1,6 +1,6 @@
 import type { Skill } from "../../i18n/ui";
 import { SkillList } from "../ui/Skills";
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useState, useEffect } from "react";
 import type { Categories } from "../../i18n/ui";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/Popover";
 // import Projectimg from "../ui/Projectimg";
@@ -346,8 +346,21 @@ function ProjectImage({
     .map((bp) => `/images/${name}-${bp}.${extension} ${bp}w`)
     .join(", ");
 
+  // disable mobile context menu
+  useEffect(() => {
+    const img = document.getElementById(src);
+    function swallowContextMenus(e: MouseEvent) {
+      e.preventDefault();
+    }
+    img?.addEventListener("contextmenu", swallowContextMenus);
+
+    return () => {
+      img?.removeEventListener("contextmenu", swallowContextMenus);
+    };
+  }, [src]);
+
   return (
-    <picture>
+    <picture id={src}>
       <source type="image/webp" srcSet={webpSrcSet} sizes={sizes} />
       <source
         type={`image/${extension}`}
