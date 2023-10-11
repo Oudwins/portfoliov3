@@ -38,6 +38,10 @@ export const SkillList = {
   bootstrap: {
     txt: "Bootstrap",
   },
+  jquery: {
+    txt: "",
+    img: "jquery.svg",
+  },
   react: {
     txt: "ReactJS",
   },
@@ -73,6 +77,10 @@ export const SkillList = {
   },
   prisma: {
     txt: "Prisma",
+  },
+  api: {
+    txt: "Design",
+    img: "api-design.svg",
   },
 
   // DevOps
@@ -201,13 +209,18 @@ export const Projects: ProjectData[] = [
   {
     title: "Natours Travel",
     category: Categories.api,
-    tecnologies: [SkillList.nodejs, SkillList.express, SkillList.mongodb],
+    tecnologies: [
+      SkillList.nodejs,
+      SkillList.express,
+      SkillList.mongodb,
+      SkillList.api,
+    ],
     desc: [
       `Natours is a tour selling website. Offering experiences of all kinds.
         I developed the backend using the MVC pattern. Utilizing JSON web tokens
         for user authentication.`,
       `The server, in addition to rendering site, also has an extensive
-        API that allows performing all common CRUD operations
+        REST API that allows performing all common CRUD operations
         (Create, Read, Update, Delete) for each of the 4 resources: users, tours, reviews and bookings.`,
       `For the users resource, I implemented extensive auth such as: account creation, login, password recovery via a recovery code and much more`,
       `On the other hand, for the Tours resource, I implemented auth checks to limit crud operations based on the user's role. And the option to leave reviews and book tours.`,
