@@ -9,9 +9,15 @@ import {
 // import Project from "../components/ui/Project";
 import ProjectsList from "../components/ui/ProjectsList";
 import { SkillList as sk, Projects } from "../i18n/ui";
+import { SEO } from "astro-seo";
 ---
 
 <Layout>
+  <SEO
+    slot="head"
+    title="Tristan Mayo | Designer & Full-Stack Software Engineer"
+    description="I am the kind of person who seizes every opportunity to learn something new. That is why I enjoy challenges. They are some of the best way’s to learn quickly and grow faster. I am interested in many things but very passionate about technology, linux, open source and reading."
+  />
   <main class="">
     <!-- HERO -->
     <Hero />
