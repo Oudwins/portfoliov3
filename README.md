@@ -1,13 +1,18 @@
 # NOTES
 
+## TODO
+
+Make some sort of sticky header or links on the side so we can go straight into contacting
+
+Add social icons for linkedin & github
+
+Add sitemap & more pages?
+
 ## TO FIX
 
 - Ugly animation for website view on hover end
   - https://github.com/framer/motion/issues/910
-
-## To add
-
-- Pop-over or hover card for more tecnologies
-- project browser close, minimize & expand buttons
-  - close & minimize will need a parent component that will nuke that project from the array
-  - expand seems a little more complicated, not sure how I would do it
+- Better expanding, doesn't look amazing
+  - Add animation between states
+  - Add scroll blocking, or real full screen?
+- Maybe I can better implement the project image scrolling effect with a scrollbar rather than framer ?
