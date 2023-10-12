@@ -167,27 +167,38 @@ export const SkillSection = ({
   );
 };
 
+import Image from "../ui/Image";
 export const About = ({}) => {
   return (
     <div className="text-gray-600 body-font">
       <div className="mx-auto flex px-5 py-24 items-center justify-center flex-col">
         <div className="w-full">
           <img
+            className="lg:w-1/6 md:w-1/6 shadow-lg rounded-full w-2/6 mb-10 object-cover object-center mx-auto"
+            alt="about"
+            src="/aboutme.png"
+          />
+          {/* <Image 
+            src="aboutme.png"
             className="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded mx-auto"
             alt="hero"
-            src="https://dummyimage.com/720x600"
-          />
+          />*/}
         </div>
-        <div className="text-center lg:w-2/3 w-full">
-          <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
-            Microdosing synth tattooed vexillologist
-          </h1>
-          <p className="mb-8 leading-relaxed">
-            Meggings kinfolk echo park stumptown DIY, kale chips beard jianbing
-            tousled. Chambray dreamcatcher trust fund, kitsch vice godard
-            disrupt ramps hexagon mustache umami snackwave tilde chillwave ugh.
-            Pour-over meditation PBR&B pickled ennui celiac mlkshk freegan photo
-            booth af fingerstache pitchfork.
+        <div className="text-center  lg:w-2/3 w-full">
+          <div className="py-5">
+            <h2 className="text-gray-900 text-center uppercase text-3xl font-bold sm:text-4xl md:text-5xl">
+              <span className="text-indigo-700 border-l-4 border-indigo-700 pl-2">
+                About
+              </span>{" "}
+              Me
+            </h2>
+          </div>
+          <p className="leading-relaxed pt-4">
+            I am the kind of person who seizes every opportunity to learn
+            something new. That is why I enjoy challenges. They are some of the
+            best way’s to learn quickly and grow faster. I am interested in many
+            things but very passionate about technology, linux, open source and
+            reading.
           </p>
         </div>
       </div>
@@ -200,6 +211,7 @@ export const ContactForm = ({
 }: {
   formText: {
     name: string;
+    company: string;
     email: string;
     phone: string;
     message: string;
@@ -229,6 +241,18 @@ export const ContactForm = ({
           />
         </div>
 
+        <div>
+          <label className="sr-only" htmlFor="company">
+            {formText.company}
+          </label>
+          <input
+            className="w-full rounded-lg bg-gray-50 p-3  focus:outline-indigo-600 shadow placeholder:text-gray-500"
+            placeholder={formText.company}
+            type="text"
+            id="company"
+            name="company"
+          />
+        </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label className="sr-only" htmlFor="email">
