@@ -8,9 +8,7 @@ import {
 } from "../components/pages/index";
 // import Project from "../components/ui/Project";
 import ProjectsList from "../components/ui/ProjectsList";
-import { SkillList as sk } from "../i18n/ui";
-
-import { Projects } from "../i18n/ui";
+import { SkillList as sk, Projects } from "../i18n/ui";
 ---
 
 <Layout>
@@ -72,7 +70,7 @@ import { Projects } from "../i18n/ui";
             ],
           },
         ]}
-        client:load
+        client:only
       />
     </section>
     <!-- PROJECTS -->
