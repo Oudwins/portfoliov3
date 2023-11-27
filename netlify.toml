@@ -1,3 +1,7 @@
 [[redirects]]
   from = "/linkedin"
   to = "https://www.linkedin.com/in/tristan-mayo-466b3814b/"
+
+[[redirects]]
+  from = "/try-builder"
+  to = "https://ridaly-hosting-ltfck1at0-oudwins.vercel.app/design/a/blocks"
