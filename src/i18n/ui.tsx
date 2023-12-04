@@ -168,7 +168,7 @@ export const Projects: ProjectData[] = [
   //   },
 
   {
-    title: "Ridaly Hosting",
+    title: "Ridaly Hosting & Website Builder",
     category: Categories.website,
     tecnologies: [
       SkillList.ts,
@@ -187,12 +187,12 @@ export const Projects: ProjectData[] = [
   creation, and design.`,
       `I developed the backend hosting site completely on my own (including the design) using the T3 Stack (Typescript, Nextjs & Tailwindcss, read more about it here -> create.t3.gg). The site integrates with stripe to handle transations & caches subscription, payment and receipt information on a mysql database to avoid saturating the stripe api.`,
       `In addition, the website is fully i18n compatible and is already available in spanish & english.`,
-      `Unfortunatly, the code is not freely accesible, I have provided a link to an old version of the code made for my CS50 Final Project. However the current site is much more advanced. If you would like to take a look at it message me and I can give you access.`,
+      `I am currently extending the platform with a custom Wix style Website Builder that will their customers to visually edit and deploy static websites.`,
     ],
     btns: [
       {
-        t: "Github (old)",
-        href: "https://github.com/Oudwins/subscriptioner-template",
+        t: "Try the builder",
+        href: "/try-builder",
       },
       {
         t: "View site",
