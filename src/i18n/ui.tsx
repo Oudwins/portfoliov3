@@ -2,6 +2,7 @@
 export const Categories = {
   website: "website",
   api: "api",
+  library: "Library",
   plugin: "plugin",
   design: "design",
 } as const;
@@ -56,6 +57,9 @@ export const SkillList = {
   },
   astro: {
     txt: "AstroJS",
+  },
+  postcss: {
+    txt: "PostCSS",
   },
 
   // Back
@@ -204,6 +208,31 @@ export const Projects: ProjectData[] = [
       desktop: "project_showcase_ridalyhosting-desktop.jpeg",
       tablet: "project_showcase_ridalyhosting-tablet.jpeg",
       phone: "project_showcase_ridalyhosting-phone.jpeg",
+    },
+  },
+  {
+    // TODO -> add current github stars & npm downloads -> https://gist.github.com/jasonrudolph/6057563
+    title: "DStyler - Dynamic Stylesheets",
+    category: Categories.library,
+    tecnologies: [SkillList.postcss, SkillList.ts, SkillList.css],
+    desc: [
+      `Dstyler aims to provide a very simple and intuitive API to work with the little known Stylesheet browser API to create stylesheets that react to user input. Create, Remove, Update and Delete css styles,classes and media queries dynamically.`,
+      `Dstyler is "kind of" like the react of stylesheets. To avoid unnecesary dom updates we mantain a virtual cssom and only update it when necesary. Minimizing dom updates & screen rerenders.`,
+      `To achive this it takes advantage of the postcss AST and a few custom diffing algorithms and the method chaining pattern to create a seamless developer experience.`,
+    ],
+    btns: [
+      {
+        t: "View on Github",
+        href: "https://github.com/Oudwins/dstyler",
+      },
+      {
+        t: "View on npm",
+        href: "https://www.npmjs.com/package/dstyler",
+      },
+    ],
+    imgs: {
+      alt: "View of DStyler's npm page. Dstyler is a package for working with dynamic stylesheets powered by postcss. Create, Remove, Update and Delete css styles dynamically.",
+      desktop: "project_showcase_dstyler-desktop.jpeg",
     },
   },
   {
