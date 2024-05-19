@@ -22,7 +22,7 @@ import { SEO } from "astro-seo";
     <!-- HERO -->
     <Hero />
     <!-- SKILLS -->
-    <section class="py-16 custom-screen" id="skills">
+    <section class="custom-screen py-16" id="skills">
       <SkillSection
         slides={[
           {
@@ -46,11 +46,12 @@ import { SEO } from "astro-seo";
           },
           {
             title: "Back-End",
-            desc: "On the backend, I specialize in technologies such as NodeJS, Express, NextJS, NuxtJS, MongoDB, MySQL, tRPC, and Prisma. These tools allow me to build scalable and efficient server-side applications and databases that meet the needs of clients.",
+            desc: "On the backend, I specialize in technologies such as NodeJS, Express, Golang, NextJS, NuxtJS, MongoDB, MySQL, tRPC, and Prisma. These tools allow me to build scalable and efficient server-side applications and databases that meet the needs of clients.",
             skills: [
-              sk.api,
               sk.nodejs,
               sk.express,
+              sk.go,
+              sk.api,
               sk.next,
               sk.nuxt,
               sk.mongodb,
@@ -83,9 +84,9 @@ import { SEO } from "astro-seo";
     <section class="custom-screen" id="projects">
       <div class="py-5">
         <h2
-          class="text-center uppercase text-3xl font-bold sm:text-4xl md:text-5xl"
+          class="text-center text-3xl font-bold uppercase sm:text-4xl md:text-5xl"
         >
-          <span class="text-indigo-700 border-l-4 border-indigo-700 pl-2"
+          <span class="border-l-4 border-indigo-700 pl-2 text-indigo-700"
             >Pro</span
           >jects
         </h2>
@@ -100,7 +101,7 @@ import { SEO } from "astro-seo";
 
     <!-- Form -->
     <section class="custom-screen py-16 lg:py-24" id="contact">
-      <div class="px-5 py-16 shadow space-y-8">
+      <div class="space-y-8 px-5 py-16 shadow">
         <ContactForm
           formText={{
             name: "Name",

@@ -1,31 +1,19 @@
-import type { Skill } from "../../i18n/ui";
-import { SkillList } from "../ui/Skills";
+import type { Skill } from "../../../i18n/ui";
+import { SkillList } from "../Skills";
 import { type ReactNode, useState, useEffect } from "react";
-import type { Categories } from "../../i18n/ui";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/Popover";
+import type {
+  Categories,
+  BrowserProjectData,
+  ResponsiveViews,
+} from "../../../i18n/ui";
+import { Popover, PopoverContent, PopoverTrigger } from "../Popover";
 // import Projectimg from "../ui/Projectimg";
-import { ButtonLink } from "../ui/Button";
-import Image from "../ui/Image";
-import LoadingSpinner from "./loadingSpinner";
+import { ButtonLink } from "../Button";
+import Image from "../Image";
+import LoadingSpinner from "../loadingSpinner";
+import ProjectContent from "./ProjectContent";
 
-type ResponsiveViews = "desktop" | "tablet" | "phone";
-export interface ProjectData {
-  category: (typeof Categories)[keyof typeof Categories];
-  title: string;
-  desc?: string[];
-  tecnologies: Skill[];
-  btns: { t: string; href: string }[];
-  imgs: {
-    alt?: string;
-    default?: ResponsiveViews;
-    desktop?: string;
-    tablet?: string;
-    phone?: string;
-  };
-  disableScrollImage?: boolean;
-}
-
-export default function Project({
+export default function FrontendProject({
   children,
   project,
   align = "left",
@@ -33,7 +21,7 @@ export default function Project({
   deleteProject,
 }: {
   children: ReactNode;
-  project: ProjectData;
+  project: BrowserProjectData;
   align?: "left" | "right";
   t: {
     more: string;
@@ -53,7 +41,7 @@ export default function Project({
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="w-5 h-5"
+        className="h-5 w-5"
       >
         <path
           strokeLinecap="round"
@@ -69,7 +57,7 @@ export default function Project({
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="w-5 h-5"
+        className="h-5 w-5"
       >
         <path
           strokeLinecap="round"
@@ -85,7 +73,7 @@ export default function Project({
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="w-5 h-5"
+        className="h-5 w-5"
       >
         <path
           strokeLinecap="round"
@@ -107,7 +95,7 @@ export default function Project({
 
   return (
     <div className="">
-      <div className=" px-4 py-8 sm:py-12 sm:px-6 lg:py-16 lg:px-8">
+      <div className="px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
         <div
           className={
             isFullScreen
@@ -121,7 +109,7 @@ export default function Project({
           >
             {/* BROWSER BAR */}
             <div
-              className="px-3 rounded-t-xl bg-gray-700 flex justify-between items-center"
+              className="flex items-center justify-between rounded-t-xl bg-gray-700 px-3"
               style={{
                 // background: "#474747",
                 boxShadow: "0 7px 7px -5px rgba(0,0,0,.21)",
@@ -132,7 +120,7 @@ export default function Project({
               {/* Left buttons */}
               <div className="flex space-x-2">
                 <button
-                  className="bg-red-500 rounded-full hover:bg-red-400 transition-all "
+                  className="rounded-full bg-red-500 transition-all hover:bg-red-400"
                   style={{
                     width: "1.1rem",
                     height: "1.1rem",
@@ -140,7 +128,7 @@ export default function Project({
                   onClick={deleteSelf}
                 ></button>
                 <button
-                  className="bg-yellow-500 rounded-full hover:bg-yellow-400 transition-all "
+                  className="rounded-full bg-yellow-500 transition-all hover:bg-yellow-400"
                   style={{
                     width: "1.1rem",
                     height: "1.1rem",
@@ -148,7 +136,7 @@ export default function Project({
                   onClick={deleteSelf}
                 ></button>
                 <button
-                  className="bg-green-500 rounded-full hover:bg-green-400 transition-all "
+                  className="rounded-full bg-green-500 transition-all hover:bg-green-400"
                   style={{
                     width: "1.1rem",
                     height: "1.1rem",
@@ -181,7 +169,7 @@ export default function Project({
                 })}
               </div>
             </div>
-            {/* <div className="border-x-2 border-b-2 border-gray-700 relative h-64 overflow-hidden sm:h-80  lg:h-full"> */}
+            {/* <div className="relative h-64 overflow-hidden border-x-2 border-b-2 border-gray-700 sm:h-80 lg:h-full"> */}
             {/* TESTING */}
             <div
               className={`border-x-2 border-b-2 border-gray-700 relative overflow-hidden ${
@@ -192,7 +180,7 @@ export default function Project({
                 <Image
                   //@ts-ignore IDK HOW TO FIX THIS
                   src={project.imgs[currentView]}
-                  className="absolute top-0 w-full object-cover min-h-full"
+                  className="absolute top-0 min-h-full w-full object-cover"
                   alt={project.imgs.alt || ""}
                   maxWidth={currentView === "phone" ? 640 : undefined}
                   onLoad={() => {
@@ -203,7 +191,7 @@ export default function Project({
                 <ProjectImage
                   //@ts-ignore IDK HOW TO FIX THIS
                   src={project.imgs[currentView]}
-                  className="absolute top-0 w-full object-cover min-h-full"
+                  className="absolute top-0 min-h-full w-full object-cover"
                   alt={project.imgs.alt || ""}
                   maxWidth={currentView === "phone" ? 640 : undefined}
                   onLoad={() => {
@@ -219,96 +207,7 @@ export default function Project({
             </div>
           </div>
           {/* CONTENT */}
-          <div className="lg:py-24 text-center sm:text-left">
-            {/* TITLE */}
-            <h2 className="text-3xl font-light sm:text-4xl relative">
-              {project.title}
-              <span
-                className="font-extrabold opacity-5 absolute uppercase text-6xl sm:text-7xl md:text-8xl pointer-events-none "
-                style={{
-                  top: "-0.5em",
-                  left: "-20px",
-                  right: "0",
-                  bottom: "0",
-                }}
-              >
-                {project.category}
-              </span>
-            </h2>
-            {/* Skills */}
-            <SkillList
-              skills={project.tecnologies.slice(0, 3)}
-              className="py-5"
-            >
-              {project.tecnologies.length > 3 ? (
-                <Popover>
-                  <PopoverTrigger className="flex items-center justify-center py-1 px-2 space-x-1 hover:bg-gray-300 rounded transition-all capitalize">
-                    {t.more}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                      />
-                    </svg>
-                  </PopoverTrigger>
-                  <PopoverContent className="bg-gray-50 p-2">
-                    <SkillList
-                      skills={project.tecnologies.slice(3)}
-                    ></SkillList>
-                  </PopoverContent>
-                </Popover>
-              ) : (
-                ""
-              )}
-              {/* <div className="flex items-center justify-center py-1 px-2 space-x-1 hover:bg-gray-300 rounded transition-all">
-                More
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                  />
-                </svg>
-              </div> */}
-            </SkillList>
-            {/* TEXT */}
-            <div className="text-gray-800 font-light text-justify">
-              {children}
-            </div>
-
-            <div className="flex flex-col gap-5 my-8 sm:flex-row">
-              <ButtonLink href={project.btns[0].href} target="_blank">
-                {project.btns[0].t}
-              </ButtonLink>
-
-              {project.btns[1] ? (
-                <ButtonLink
-                  variant="secondary"
-                  href={project.btns[1].href}
-                  target="_blank"
-                >
-                  {project.btns[1].t}
-                </ButtonLink>
-              ) : (
-                ""
-              )}
-            </div>
-          </div>
+          <ProjectContent project={project}>{children}</ProjectContent>
         </div>
       </div>
     </div>

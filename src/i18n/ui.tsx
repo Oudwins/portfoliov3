@@ -32,6 +32,9 @@ export const SkillList = {
   go: {
     txt: "Golang",
   },
+  java: {
+    txt: "Java",
+  },
   // Front
   tailwind: {
     txt: "Tailwindcss",
@@ -119,58 +122,31 @@ export const SkillList = {
     txt: "Figma",
   },
 };
-import type { ProjectData } from "../components/ui/Project";
-export const Projects: ProjectData[] = [
-  //   {
-  //     title: "Ridaly Digital",
-  //     category: Categories.website,
-  //     tecnologies: [
-  //       SkillList.react,
-  //       SkillList.ts,
-  //       SkillList.tailwind,
-  //       SkillList.astro,
-  //       SkillList.html,
-  //       SkillList.css,
-  //     ],
-  //     desc: [
-  //       `Ridaly's Marketing Agency is a Madrid-based company that specializes
-  // in marketing, design, and technology. They offer a wide range of
-  // services to help businesses of all sizes connect with their audience,
-  // including strategy development, marketing, technology, content
-  // creation, and design. As the designer and developer of the website,
-  // you can take pride in creating a platform that showcases Ridaly's
-  // unique capabilities and expertise.`,
-  //       `Their strategy services include data analysis, user persona mapping,
-  // and audits to help businesses develop unique recommendations that will
-  // reduce expenses and increase income. The marketing services they offer
-  // encompass all digital and offline marketing channels, including social
-  // media, SEO, SEM, and conversion optimization. Their technology
-  // services include front-end and back-end development, app development,
-  // and integrations. They also offer content creation services such as
-  // content strategy, copywriting, audiovisual production, and social
-  // media management.`,
-  //       `Ridaly's Marketing Agency places great emphasis on design, including
-  // branding, UX/UI, and creation of assets. They pride themselves on
-  // creating unforgettable visual identities that combine seamlessly with
-  // user experiences that enchant, engage, and convert.`,
-  //       `With Ridaly's Marketing Agency, businesses can focus on their core
-  // operations while leaving the marketing, design, and technology tasks
-  // to the experts.`,
-  //     ],
-  //     btns: [
-  //       {
-  //         t: "View on Github",
-  //         href: "/",
-  //       },
-  //     ],
-  //     imgs: {
-  //       alt: "Testing",
-  //       desktop: "project_showcase_ridaly-desktop.jpeg",
-  //       tablet: "project_showcase_ridaly-tablet.jpeg",
-  //       phone: "project_showcase_ridaly-phone.jpeg",
-  //     },
-  //   },
 
+export type ResponsiveViews = "desktop" | "tablet" | "phone";
+export interface BaseProjectData {
+  category: (typeof Categories)[keyof typeof Categories];
+  title: string;
+  desc?: string[];
+  tecnologies: Skill[];
+  btns: { t: string; href: string }[];
+}
+export interface BrowserProjectData extends BaseProjectData {
+  imgs: {
+    alt?: string;
+    default?: ResponsiveViews;
+    desktop?: string;
+    tablet?: string;
+    phone?: string;
+  };
+  disableScrollImage?: boolean;
+}
+
+export interface ImageProjectData extends BaseProjectData {
+  img: string;
+}
+export type ProjectData = BrowserProjectData | ImageProjectData;
+export const Projects: ProjectData[] = [
   {
     title: "Ridaly Hosting & Website Builder",
     category: Categories.website,
@@ -211,7 +187,22 @@ export const Projects: ProjectData[] = [
     },
   },
   {
-    // TODO -> add current github stars & npm downloads -> https://gist.github.com/jasonrudolph/6057563
+    title: "Tailwind Merge Go",
+    category: Categories.library,
+    tecnologies: [SkillList.go, SkillList.tailwind],
+    desc: [
+      `Utility function to efficiently merge Tailwind CSS classes in Golang without style conflicts. This library aims to be as close as possible to a 1:1 copy of the super popular original dcastil/tailwind-merge library written in javascript.`,
+      `It has great support:  Tailwind v3.0 up to v3.4, supports extending the default configuration, even providing your own caching solution, and more!`,
+    ],
+    btns: [
+      {
+        t: "View on Github",
+        href: "https://github.com/Oudwins/tailwind-merge-go",
+      },
+    ],
+    img: "tailwind-merge.svg",
+  },
+  {
     title: "DStyler - Dynamic Stylesheets",
     category: Categories.library,
     tecnologies: [SkillList.postcss, SkillList.ts, SkillList.css],
@@ -236,76 +227,93 @@ export const Projects: ProjectData[] = [
     },
   },
   {
-    title: "Natours Travel",
-    category: Categories.api,
-    tecnologies: [
-      SkillList.nodejs,
-      SkillList.express,
-      SkillList.mongodb,
-      SkillList.api,
-    ],
+    title: "Jadis - A Redis Implementation",
+    category: Categories.library,
+    tecnologies: [SkillList.java],
     desc: [
-      `Natours is a tour selling website. Offering experiences of all kinds.
-        I developed the backend using the MVC pattern. Utilizing JSON web tokens
-        for user authentication.`,
-      `The server, in addition to rendering site, also has an extensive
-        REST API that allows performing all common CRUD operations
-        (Create, Read, Update, Delete) for each of the 4 resources: users, tours, reviews and bookings.`,
-      `For the users resource, I implemented extensive auth such as: account creation, login, password recovery via a recovery code and much more`,
-      `On the other hand, for the Tours resource, I implemented auth checks to limit crud operations based on the user's role. And the option to leave reviews and book tours.`,
-    ],
-    btns: [
-      {
-        t: "View Github",
-        href: "https://github.com/Oudwins/natours",
-      },
-    ],
-    imgs: {
-      alt: "Natours API project featured image",
-      desktop: "project_showcase_natours-desktop.jpg",
-      // tablet: "project_showcase_ridaly-tablet.jpeg",
-      // phone: "project_showcase_ridaly-phone.jpeg",
-    },
-  },
-  {
-    title: "Zwary Restaurant",
-    category: Categories.website,
-    tecnologies: [
-      SkillList.js,
-      SkillList.css,
-      {
-        txt: "Gsap",
-        img: null,
-      },
-      SkillList.html,
-    ],
-    desc: [
-      `Zwary is a website for a high-end restaurant. It is
-        developed and designed entirely by me and is 100% responsive. The focus is on making a great design with amazing custom animations. The screenshot does not do it justice, so please visit the site to see it in action.`,
-      `The website has a unique and special design because it was crucial
-        to represent the restaurant's uniqueness through its
-        design. On the homepage, an exclusive user experience has been created
-        by placing an important visual element in its center.
-        Meanwhile, on the rest of the pages, a simple yet elegant style is reflected
-        that aligns perfectly with the restaurant's intentions.`,
-      `The site was developed using plan HTML, CSS & JS. Using the Gsap animation library to achieve some of the amazing animations you can see on screen.`,
+      `A reimplementation of the Redis in memory database using java. This was created purely for fun as a good way to get a better understanding of this brilliant database.`,
+      `Unlike many Redis reimplementations Jadis does not use threads to handle concurrent requests. Just like Redis, Jadis is single threaded. It takes advantage of an event loop (implemented through the java NIO package) to handle concurrent requests without the possibility of race conditions.`,
+      `One of the most interesting parts of this project is the implementation of the Redis Serialization protocol which can be found in the Protocol file.`,
     ],
     btns: [
       {
         t: "View on Github",
-        href: "https://github.com/Oudwins/zwary",
-      },
-      {
-        t: "View Site",
-        href: "https://www.zwary.tristanmayo.com/",
+        href: "https://github.com/Oudwins/tailwind-merge-go",
       },
     ],
-    imgs: {
-      alt: "Website for the Zwary Restaurant",
-      desktop: "project_showcase_zwary-desktop.jpeg",
-      tablet: "project_showcase_zwary-tablet.jpeg",
-      phone: "project_showcase_zwary-phone.jpeg",
-    },
-    disableScrollImage: true,
+    img: "redis.svg",
   },
+  // {
+  //   title: "Natours Travel",
+  //   category: Categories.api,
+  //   tecnologies: [
+  //     SkillList.nodejs,
+  //     SkillList.express,
+  //     SkillList.mongodb,
+  //     SkillList.api,
+  //   ],
+  //   desc: [
+  //     `Natours is a tour selling website. Offering experiences of all kinds.
+  //       I developed the backend using the MVC pattern. Utilizing JSON web tokens
+  //       for user authentication.`,
+  //     `The server, in addition to rendering site, also has an extensive
+  //       REST API that allows performing all common CRUD operations
+  //       (Create, Read, Update, Delete) for each of the 4 resources: users, tours, reviews and bookings.`,
+  //     `For the users resource, I implemented extensive auth such as: account creation, login, password recovery via a recovery code and much more`,
+  //     `On the other hand, for the Tours resource, I implemented auth checks to limit crud operations based on the user's role. And the option to leave reviews and book tours.`,
+  //   ],
+  //   btns: [
+  //     {
+  //       t: "View Github",
+  //       href: "https://github.com/Oudwins/natours",
+  //     },
+  //   ],
+  //   imgs: {
+  //     alt: "Natours API project featured image",
+  //     desktop: "project_showcase_natours-desktop.jpg",
+  //     // tablet: "project_showcase_ridaly-tablet.jpeg",
+  //     // phone: "project_showcase_ridaly-phone.jpeg",
+  //   },
+  // },
+  // {
+  //   title: "Zwary Restaurant",
+  //   category: Categories.website,
+  //   tecnologies: [
+  //     SkillList.js,
+  //     SkillList.css,
+  //     {
+  //       txt: "Gsap",
+  //       img: null,
+  //     },
+  //     SkillList.html,
+  //   ],
+  //   desc: [
+  //     `Zwary is a website for a high-end restaurant. It is
+  //       developed and designed entirely by me and is 100% responsive. The focus is on making a great design with amazing custom animations. The screenshot does not do it justice, so please visit the site to see it in action.`,
+  //     `The website has a unique and special design because it was crucial
+  //       to represent the restaurant's uniqueness through its
+  //       design. On the homepage, an exclusive user experience has been created
+  //       by placing an important visual element in its center.
+  //       Meanwhile, on the rest of the pages, a simple yet elegant style is reflected
+  //       that aligns perfectly with the restaurant's intentions.`,
+  //     `The site was developed using plan HTML, CSS & JS. Using the Gsap animation library to achieve some of the amazing animations you can see on screen.`,
+  //   ],
+  //   btns: [
+  //     {
+  //       t: "View on Github",
+  //       href: "https://github.com/Oudwins/zwary",
+  //     },
+  //     {
+  //       t: "View Site",
+  //       href: "https://www.zwary.tristanmayo.com/",
+  //     },
+  //   ],
+  //   imgs: {
+  //     alt: "Website for the Zwary Restaurant",
+  //     desktop: "project_showcase_zwary-desktop.jpeg",
+  //     tablet: "project_showcase_zwary-tablet.jpeg",
+  //     phone: "project_showcase_zwary-phone.jpeg",
+  //   },
+  //   disableScrollImage: true,
+  // },
 ];
