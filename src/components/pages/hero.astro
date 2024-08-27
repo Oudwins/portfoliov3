@@ -1,0 +1,245 @@
+---
+---
+
+<section
+  class="isaolate relative min-h-screen overflow-hidden pb-16 pt-24 md:pt-32"
+  style="perspective: 20000px;"
+>
+  <div class="custom-screen">
+    <div
+      class="flex h-full w-full flex-col items-center justify-center space-y-5 bg-transparent py-20 text-center"
+    >
+      {/* VIDEO */}
+      <div id="tiler" class="absolute inset-0 h-full w-full bg-black">
+        <div class="tile"></div>
+      </div>
+      {/* Content */}
+      {/* TITLE */}
+      <div
+        class="pointer-events-none relative mx-auto max-w-xl space-y-2 bg-transparent"
+      >
+        <p class="mx-auto text-2xl font-light text-white">
+          Hello 👋 my name is{" "}
+          <span class="font-bold text-indigo-400">Tristan</span>, I am a
+        </p>
+        <p class="mx-auto py-4 text-4xl font-semibold text-white">
+          <span class="font-bold text-emerald-400"> Full Stack</span>
+          Software Engineer &
+          <span class="font-bold text-emerald-400"> Designer</span>
+        </p>
+        <p class="mx-auto text-2xl font-light text-white">
+          Specializing in
+          <span class="font-bold text-amber-400">TS/Node</span> and
+          <span class="font-bold text-amber-400">Golang</span>
+        </p>
+      </div>
+      <!-- <div
+        class="pointer-events-none relative mx-auto max-w-4xl text-center lg:max-w-5xl"
+      > -->
+      <!-- <h1
+          class="pointer-events-none text-4xl font-extrabold uppercase leading-relaxed tracking-wide text-gray-50 sm:text-7xl sm:leading-snug md:leading-snug lg:text-8xl lg:leading-snug"
+          style={{
+            mixBlendMode: "color-dodge",
+          }}
+        >
+          Designer & Full Stack Web developer
+          {/* {t.title} */}
+        </h1>
+        <p
+          area-hidden="true"
+          class="pointer-events-none absolute inset-0 text-center text-4xl font-extrabold uppercase leading-relaxed tracking-wide text-gray-50 opacity-50 sm:text-7xl sm:leading-snug md:leading-snug lg:text-8xl lg:leading-snug"
+        >
+          Designer & Full Stack Web developer
+          {/* {t.title} */}
+        </p> -->
+      <!-- </div> -->
+    </div>
+  </div>
+</section>
+
+<script>
+  const cubeSize = 50; //px
+  const viewportHeight = window.innerHeight;
+  const screenWidth = window.innerWidth;
+  const numCubesVertical = Math.floor(viewportHeight / cubeSize);
+  const numCubesHorizontal = Math.floor(screenWidth / cubeSize);
+
+  const totalCubes = numCubesVertical * numCubesHorizontal * 1.5;
+
+  const container = document.querySelector("#tiler");
+  const tile = document.querySelector(".tile");
+
+  if (window.innerWidth < 768) {
+    container.style["grid-template-columns"] = "repeat(20, 1fr)";
+  } else {
+    container.style["grid-template-columns"] = "repeat(40, 1fr)";
+  }
+
+  const tiles = [];
+
+  let startTime = Date.now();
+
+  // select a visible tile & trigger hover on it
+
+  async function triggerRandomtile() {
+    let isVisible = false;
+    let tries = 0;
+    while (!isVisible && tries < 100) {
+      const randomIndex = Math.floor(Math.random() * tiles.length);
+      const tile = tiles[randomIndex];
+      isVisible = isElementInViewport(tile);
+      if (isVisible) {
+        tile.classList.add("tile-hover");
+        setTimeout(() => {
+          tile.classList.remove("tile-hover");
+        }, 50);
+      }
+      tries++;
+    }
+  }
+
+  function isElementInViewport(el: HTMLElement) {
+    var rect = el.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <=
+        (window.innerHeight ||
+          document.documentElement.clientHeight) /* or $(window).height() */ &&
+      rect.right <=
+        (window.innerWidth ||
+          document.documentElement.clientWidth) /* or $(window).width() */
+    );
+  }
+
+  function isElementPartiallyInViewport(el) {
+    const rect = el.getBoundingClientRect();
+
+    return (
+      rect.top < window.innerHeight && // top edge is above the bottom of the viewport
+      rect.bottom > 0 && // bottom edge is below the top of the viewport
+      rect.left < window.innerWidth && // left edge is to the left of the right edge of the viewport
+      rect.right > 0 // right edge is to the right of the left edge of the viewport
+    );
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    for (let i = 0; i < totalCubes; i++) {
+      const n = tile?.cloneNode();
+      container.appendChild(n);
+      tiles.push(n);
+    }
+    const interval = setInterval(() => {
+      if (
+        isElementPartiallyInViewport(container) &&
+        Date.now() - startTime < 1000 * 9
+      ) {
+        triggerRandomtile().then();
+      }
+    }, 2000);
+  });
+</script>
+
+<style>
+  :root {
+    /* --red-rgb: 248 113 113;
+    --blue-rgb: 56 189 248;
+    --green-rgb: 74 222 128;
+    --yellow-rgb: 253 224 71; */
+    --red-rgb: 248 113 113;
+    --blue-rgb: 129, 140, 248;
+    --green-rgb: 52, 211, 153;
+    --yellow-rgb: 251, 191, 36;
+
+    --background-rgb: 0 0 0;
+  }
+  #tiler {
+    /* aspect-ratio: 1; */
+    display: grid;
+    /* grid-template-rows: repeat(40, 1fr); */
+    /* grid-template-columns: repeat(40, 1fr); */
+    grid-template-columns: repeat(20, 1fr);
+    position: absolute;
+    transform: rotateX(50deg) rotateY(-5deg) rotateZ(20deg) scale(2);
+  }
+  #tiler:after {
+    z-index: 3;
+    background: radial-gradient(
+      circle,
+      transparent 25%,
+      rgb(var(--background-rgb)) 80%
+    );
+  }
+
+  .tile {
+    border: 1px solid rgb(255 255 255 / 10%);
+    transition: background-color 1500ms;
+    min-height: 40px;
+    min-width: 40px;
+  }
+
+  .tile:hover,
+  .tile-hover {
+    transition-duration: 0ms;
+  }
+
+  .tile:nth-child(4n):hover,
+  .tile-hover:nth-child(4n) {
+    background-color: rgb(var(--red-rgb));
+  }
+
+  .tile:nth-child(4n + 1):hover,
+  .tile-hover:nth-child(4n + 1) {
+    background-color: rgb(var(--blue-rgb));
+  }
+
+  .tile:nth-child(4n + 2):hover,
+  .tile-hover:nth-child(4n + 2) {
+    background-color: rgb(var(--green-rgb));
+  }
+
+  .tile:nth-child(4n + 3):hover,
+  .tile-hover:nth-child(4n + 3) {
+    background-color: rgb(var(--yellow-rgb));
+  }
+
+  .tile:nth-child(7n):hover,
+  .tile-hover:nth-child(7n) {
+    background-color: rgb(var(--blue-rgb));
+  }
+
+  .tile:nth-child(7n + 3):hover,
+  .tile-hover:nth-child(7n + 3) {
+    background-color: rgb(var(--green-rgb));
+  }
+
+  .tile:nth-child(7n + 5):hover,
+  .tile-hover:nth-child(7n + 5) {
+    background-color: rgb(var(--yellow-rgb));
+  }
+
+  .tile:nth-child(7n + 6):hover,
+  .tile-hover:nth-child(7n + 6) {
+    background-color: rgb(var(--red-rgb));
+  }
+
+  .tile:nth-child(11n + 1):hover,
+  .tile-hover:nth-child(11n + 1) {
+    background-color: rgb(var(--red-rgb));
+  }
+
+  .tile:nth-child(11n + 4):hover,
+  .tile-hover:nth-child(11n + 4) {
+    background-color: rgb(var(--blue-rgb));
+  }
+
+  .tile:nth-child(11n + 7):hover,
+  .tile-hover:nth-child(11n + 7) {
+    background-color: rgb(var(--green-rgb));
+  }
+
+  .tile:nth-child(11n + 10):hover,
+  .tile-hover:nth-child(11n + 10) {
+    background-color: rgb(var(--yellow-rgb));
+  }
+</style>

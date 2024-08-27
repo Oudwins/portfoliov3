@@ -4,7 +4,7 @@ import type { Skill } from "../../i18n/ui";
 
 export const SkillItem = ({ skill }: { skill: Skill }) => {
   return (
-    <div className="flex basis-24 items-center justify-center flex-1 py-1 px-2 border-2 border-indigo-700 rounded space-x-1">
+    <div className="flex flex-1 basis-24 items-center justify-center space-x-1 rounded border-2 border-indigo-700 px-2 py-1">
       {skill.img === null ? (
         ""
       ) : (
@@ -15,7 +15,7 @@ export const SkillItem = ({ skill }: { skill: Skill }) => {
           className="h-6"
         ></img>
       )}
-      <p className="font-normal text-sm">{skill.txt}</p>
+      <p className="text-sm font-normal">{skill.txt}</p>
     </div>
   );
 };

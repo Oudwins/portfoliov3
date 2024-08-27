@@ -50,7 +50,7 @@ const Navbar = ({
       // className={`fixed w-full top-0 z-20 transition-all ${
       //   scrollPosition > 100 || state ? "shadow bg-gray-900" : ""
       // }`}
-      className="absolute top-0 left-0 right-0 z-20"
+      className="absolute left-0 right-0 top-0 z-20"
       ref={header}
     >
       <div className="">
@@ -81,7 +81,7 @@ const Navbar = ({
                 state ? "block" : "hidden"
               } `}
             >
-              <ul className="justify-center items-center space-y-6 md:flex md:space-x-6 md:space-y-0">
+              <ul className="items-center justify-center space-y-6 md:flex md:space-x-6 md:space-y-0">
                 {navigationItems.map((item, idx) => {
                   if (item.isButton)
                     return (
@@ -89,7 +89,7 @@ const Navbar = ({
                         <ButtonLink
                           variant="secondary"
                           href={item.href}
-                          className="mx-auto py-2 px-5"
+                          className="mx-auto px-5 py-2"
                         >
                           {item.name}
                         </ButtonLink>
@@ -98,18 +98,36 @@ const Navbar = ({
 
                   return (
                     <li key={idx} className="hover:text-gray-50">
-                      <NavLink href={item.href} className="block text-md">
+                      <NavLink href={item.href} className="text-md block">
                         {item.name}
                       </NavLink>
                     </li>
                   );
                 })}
+                <li className="flex items-center text-white">
+                  <a
+                    className="opacity-50 hover:opacity-100"
+                    href="https://github.com/Oudwins"
+                    target="_blank"
+                  >
+                    <Github className="h-6 w-6" />
+                  </a>
+                </li>
+                <li className="flex items-center text-white">
+                  <a
+                    className="opacity-50 hover:opacity-100"
+                    href="https://www.linkedin.com/in/tristanmayo/"
+                    target="_blank"
+                  >
+                    <Linkedin className="h-6 w-6" />
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
         </nav>
         {/* <div
-          className="w-2/3 bg-gray-500 rounded mx-auto"
+          className="mx-auto w-2/3 rounded bg-gray-500"
           style={{
             height: "2px",
           }}
@@ -121,6 +139,8 @@ const Navbar = ({
 
 import Logo from "../utils/Logo";
 import { ButtonLink } from "../ui/Button";
+import { Github } from "../ui/icons/Github";
+import { Linkedin } from "../ui/icons/Linkedin";
 
 const NavHeader = ({
   onClick,
@@ -137,12 +157,12 @@ const NavHeader = ({
     {/* @ts-ignore */}
     <NavLink
       href={homeUrl}
-      className="text-gray-300 hover:text-gray-50 transition"
+      className="text-gray-300 transition hover:text-gray-50"
       area-label="Link de logo a inicio"
     >
       <Logo h={40} />
     </NavLink>
-    <div className="md:hidden flex space-x-4">
+    <div className="flex space-x-4 md:hidden">
       {/* Mobile Menu Button */}
       <button
         role="button"
@@ -172,7 +192,7 @@ const NavHeader = ({
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-8 h-8"
+            className="h-8 w-8"
           >
             <path
               strokeLinecap="round"

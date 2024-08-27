@@ -7,6 +7,7 @@
     "start": "astro dev",
     "build": "pnpm run build:img && astro build",
     "build:img": "node imageOptimize.js",
+    "clean:img": "rm -rf public/images/*",
     "preview": "astro preview",
     "astro": "astro"
   },

@@ -2,11 +2,13 @@
 
 ## TODO
 
-Make some sort of sticky header or links on the side so we can go straight into contacting
+New header intro
 
-Add social icons for linkedin & github
+- Fast paced environments/startups
 
-Add sitemap & more pages?
+Add experience section?
+
+something to follow the cursor around (light)
 
 ## TO FIX
 

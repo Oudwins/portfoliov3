@@ -58,6 +58,9 @@ export const SkillList = {
   nuxt: {
     txt: "NuxtJS",
   },
+  svelte: {
+    txt: "Svelte",
+  },
   astro: {
     txt: "AstroJS",
   },
@@ -98,9 +101,11 @@ export const SkillList = {
   nginx: {
     txt: "Nginx",
   },
-  ansible: {
-    txt: "Ansible",
+  aws: {
+    txt: "",
+    img: "aws.svg",
   },
+  nix: {},
   // Other
   linuxUser: {
     txt: "Linux User",

@@ -13,13 +13,13 @@ import { SkillList } from "../ui/Skills";
 
 export const Hero = () => {
   return (
-    <section className="relative isaolate pb-16 pt-24 md:pt-32 min-h-screen">
+    <section className="isaolate relative min-h-screen pb-16 pt-24 md:pt-32">
       <div className="custom-screen py-28">
         <div className="space-y-5 text-center">
           {/* VIDEO */}
-          <div className="absolute -z-10 top-0 left-0 w-full h-full overflow-hidden bg-black">
+          <div className="absolute left-0 top-0 -z-10 h-full w-full overflow-hidden bg-black">
             <video
-              className="min-w-full min-h-full absolute object-cover"
+              className="absolute min-h-full min-w-full object-cover"
               autoPlay
               muted
               loop
@@ -29,7 +29,7 @@ export const Hero = () => {
             </video>
             {/* <Video
               src="hero.mp4"
-              className="min-w-full min-h-full absolute object-cover"
+              className="absolute min-h-full min-w-full object-cover"
               autoPlay
               muted
               loop
@@ -39,15 +39,15 @@ export const Hero = () => {
           {/* Content */}
           {/* TITLE */}
           <div className="">
-            <p className="max-w-xl mx-auto text-gray-200 text-xl">
+            <p className="mx-auto max-w-xl text-xl text-gray-200">
               Hello 👋 my name is{" "}
               <span className="font-bold text-indigo-400">Tristan </span>, I am
               a
             </p>
           </div>
-          <div className="relative max-w-4xl mx-auto lg:max-w-5xl text-center">
+          <div className="relative mx-auto max-w-4xl text-center lg:max-w-5xl">
             <h1
-              className="text-4xl tracking-wide text-gray-50 font-extrabold sm:text-7xl lg:text-8xl lg:leading-snug sm:leading-snug md:leading-snug uppercase leading-relaxed "
+              className="text-4xl font-extrabold uppercase leading-relaxed tracking-wide text-gray-50 sm:text-7xl sm:leading-snug md:leading-snug lg:text-8xl lg:leading-snug"
               style={{
                 mixBlendMode: "color-dodge",
               }}
@@ -57,15 +57,15 @@ export const Hero = () => {
             </h1>
             <p
               area-hidden="true"
-              className="text-4xl tracking-wide text-gray-50 font-extrabold sm:text-7xl lg:text-8xl lg:leading-snug sm:leading-snug md:leading-snug absolute inset-0 text-center opacity-50 uppercase leading-relaxed "
+              className="absolute inset-0 text-center text-4xl font-extrabold uppercase leading-relaxed tracking-wide text-gray-50 opacity-50 sm:text-7xl sm:leading-snug md:leading-snug lg:text-8xl lg:leading-snug"
             >
               Designer & Full Stack Web developer
               {/* {t.title} */}
             </p>
           </div>
           {/* CONTENT */}
-          {/* <div className="max-w-4xl mx-auto space-y-5 ">
-            <p className="max-w-xl mx-auto text-gray-200 text-xl">
+          {/* <div className="mx-auto max-w-4xl space-y-5">
+            <p className="mx-auto max-w-xl text-xl text-gray-200">
               {t.subtitle}
             </p>
             <div className="flex items-center justify-center gap-x-3">
@@ -108,11 +108,11 @@ export const SkillSection = ({
   }[];
 }) => {
   return (
-    <div className="py-12 lg:py-24 items-center">
+    <div className="items-center py-12 lg:py-24">
       <Accordion
         type="single"
         collapsible={false}
-        className="w-full relative"
+        className="relative w-full"
         defaultValue={slides[0].title}
       >
         {slides.map((slide, idx) => {
@@ -139,7 +139,7 @@ export const SkillSection = ({
                   align === "left" ? "lg:right-0" : "lg:left-0"
                 )}
               >
-                <div className="space-y-3 lg:space-y-5 text-lg lg:text-2xl">
+                <div className="space-y-3 text-lg lg:space-y-5 lg:text-2xl">
                   <div className="">
                     <SkillList skills={slide.skills}></SkillList>
                   </div>
@@ -149,7 +149,7 @@ export const SkillSection = ({
                     {slide.btn ? (
                       <ButtonLink
                         href={slide.btn.href}
-                        className="hidden md:show"
+                        className="md:show hidden"
                       >
                         {slide.btn.t}
                       </ButtonLink>
@@ -170,35 +170,36 @@ export const SkillSection = ({
 import Image from "../ui/Image";
 export const About = ({}) => {
   return (
-    <div className="text-gray-600 body-font">
-      <div className="mx-auto flex px-5 py-24 items-center justify-center flex-col">
+    <div className="body-font text-gray-600">
+      <div className="mx-auto flex flex-col items-center justify-center px-5 py-24">
         <div className="w-full">
           <img
-            className="lg:w-1/6 md:w-1/6 shadow-lg rounded-full w-2/6 mb-10 object-cover object-center mx-auto"
+            className="mx-auto mb-10 w-2/6 rounded-full object-cover object-center shadow-lg md:w-1/6 lg:w-1/6"
             alt="about"
             src="/aboutme.png"
           />
           {/* <Image 
             src="aboutme.png"
-            className="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded mx-auto"
+            className="mx-auto mb-10 w-5/6 rounded object-cover object-center md:w-3/6 lg:w-2/6"
             alt="hero"
           />*/}
         </div>
-        <div className="text-center  lg:w-2/3 w-full">
+        <div className="w-full text-center lg:w-2/3">
           <div className="py-5">
-            <h2 className="text-gray-900 text-center uppercase text-3xl font-bold sm:text-4xl md:text-5xl">
-              <span className="text-indigo-700 border-l-4 border-indigo-700 pl-2">
+            <h2 className="text-center text-3xl font-bold uppercase text-gray-900 sm:text-4xl md:text-5xl">
+              <span className="border-l-4 border-indigo-700 pl-2 text-indigo-700">
                 About
               </span>{" "}
               Me
             </h2>
           </div>
-          <p className="leading-relaxed pt-4">
-            I am the kind of person who seizes every opportunity to learn
-            something new. That is why I enjoy challenges. They are some of the
-            best way’s to learn quickly and grow faster. I am interested in many
-            things but very passionate about technology, linux, open source and
-            reading.
+          <p className="pt-4 leading-relaxed">
+            I find great joy in building complex projects quickly that is why I
+            have mostly worked in fast paced environements. I am the kind of
+            person who seizes every opportunity to learn something new. That is
+            why I enjoy challenges. They are some of the best way’s to learn
+            quickly and grow faster. I am interested in many things but very
+            passionate about linux, open source and reading.
           </p>
         </div>
       </div>
@@ -222,7 +223,7 @@ export const ContactForm = ({
     <div>
       <form
         method="POST"
-        className="space-y-4 w-full"
+        className="w-full space-y-4"
         data-netlify="true"
         data-netlify-recaptcha="true"
         name="contact"
@@ -232,7 +233,7 @@ export const ContactForm = ({
             {formText.name}
           </label>
           <input
-            className="w-full rounded-lg bg-gray-50 p-3  focus:outline-indigo-600 shadow placeholder:text-gray-500"
+            className="w-full rounded-lg bg-gray-50 p-3 shadow placeholder:text-gray-500 focus:outline-indigo-600"
             placeholder={formText.name}
             type="text"
             id="name"
@@ -246,7 +247,7 @@ export const ContactForm = ({
             {formText.company}
           </label>
           <input
-            className="w-full rounded-lg bg-gray-50 p-3  focus:outline-indigo-600 shadow placeholder:text-gray-500"
+            className="w-full rounded-lg bg-gray-50 p-3 shadow placeholder:text-gray-500 focus:outline-indigo-600"
             placeholder={formText.company}
             type="text"
             id="company"
@@ -259,7 +260,7 @@ export const ContactForm = ({
               {formText.email}
             </label>
             <input
-              className="w-full rounded-lg bg-gray-50 p-3  focus:outline-indigo-600 shadow placeholder:text-gray-500"
+              className="w-full rounded-lg bg-gray-50 p-3 shadow placeholder:text-gray-500 focus:outline-indigo-600"
               placeholder={formText.email}
               type="email"
               id="email"
@@ -273,7 +274,7 @@ export const ContactForm = ({
               {formText.phone}
             </label>
             <input
-              className="w-full rounded-lg bg-gray-50 p-3  focus:outline-indigo-600 shadow placeholder:text-gray-500"
+              className="w-full rounded-lg bg-gray-50 p-3 shadow placeholder:text-gray-500 focus:outline-indigo-600"
               placeholder={formText.phone}
               type="tel"
               id="phone"
@@ -289,7 +290,7 @@ export const ContactForm = ({
           </label>
 
           <textarea
-            className="w-full rounded-lg bg-gray-50 p-3  focus:outline-indigo-600 shadow placeholder:text-gray-500"
+            className="w-full rounded-lg bg-gray-50 p-3 shadow placeholder:text-gray-500 focus:outline-indigo-600"
             placeholder={formText.message}
             rows={8}
             id="message"
@@ -299,9 +300,9 @@ export const ContactForm = ({
         </div>
         <div className="" data-netlify-recaptcha="true"></div>
 
-        <div className="mt-4 flex justify-center items-center">
+        <div className="mt-4 flex items-center justify-center">
           <Button
-            className="rounded-lg w-full lg:text-lg lg:w-auto"
+            className="w-full rounded-lg lg:w-auto lg:text-lg"
             type="submit"
           >
             {formText.button}

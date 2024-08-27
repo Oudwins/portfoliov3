@@ -1,11 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import {
-  Hero,
+  // Hero,
   SkillSection,
   About,
   ContactForm,
 } from "../components/pages/index";
+import Hero from "../components/pages/hero.astro";
 // import Project from "../components/ui/Project";
 import ProjectsList from "../components/ui/ProjectsList";
 import { SkillList as sk, Projects } from "../i18n/ui";
@@ -16,7 +17,7 @@ import { SEO } from "astro-seo";
   <SEO
     slot="head"
     title="Tristan Mayo | Designer & Full-Stack Software Engineer"
-    description="I am the kind of person who seizes every opportunity to learn something new. That is why I enjoy challenges. They are some of the best way’s to learn quickly and grow faster. I am interested in many things but very passionate about technology, linux, open source and reading."
+    description="Full Stack Software Engineer & Designer with 4+ years of experience specializing in Typescript & Golang. I find great joy in building complex projects fast and I am interested in way too many things but very passionate about linux, open source and reading."
   />
   <main class="">
     <!-- HERO -->
@@ -36,9 +37,9 @@ import { SEO } from "astro-seo";
             skills: [
               sk.tailwind,
               sk.bootstrap,
-              sk.jquery,
               sk.react,
               sk.next,
+              sk.svelte,
               sk.vue,
               sk.nuxt,
               sk.astro,
@@ -63,7 +64,7 @@ import { SEO } from "astro-seo";
           {
             title: "Dev-ops",
             desc: "I have experience using DevOps technologies such as Linux servers, Ansible, and Nginx to automate application deployment and ensure server stability and security. Though I am still growing in this area, I can efficiently manage application deployments and server maintenance using these tools.",
-            skills: [sk.linuxServer, sk.nginx, sk.ansible],
+            skills: [sk.linuxServer, sk.nginx, sk.aws],
           },
           {
             title: "Beyond",
@@ -115,6 +116,10 @@ import { SEO } from "astro-seo";
       </div>
     </section>
   </main>
-
-  <style></style>
 </Layout>
+
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
