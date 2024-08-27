@@ -122,13 +122,13 @@ export const SkillSection = ({
               key={slide.title}
               // this is what makes it go right or left
               className={cn(
-                "border-none data-[state=closed]:opacity-25 lg:w-2/5",
+                "border-none lg:w-2/5 opacity-40 data-[state=open]:opacity-100 data-[state=closed]:hover:opacity-80 transition-all group",
                 align === "left" ? "lg:mr-auto" : "lg:ml-auto"
               )}
             >
               <AccordionTrigger
                 className={
-                  "focus:no-underline hover:no-underline text-xl uppercase font-extrabold text-gray-800 tracking-wide lg:[&>svg]:hidden lg:text-6xl border-b-2 border-indigo-700"
+                  "focus:no-underline hover:no-underline text-xl uppercase font-extrabold text-gray-800 tracking-wide lg:[&>svg]:hidden lg:text-6xl after:content-[''] after:absolute after:h-0.5 after:w-0 after:left-0 after:bottom-0 after:bg-indigo-700 after:transition-all after:duration-300 group-hover:after:w-[10ch] data-[state=open]:after:w-[10ch] relative"
                 }
               >
                 {slide.title}
@@ -167,7 +167,6 @@ export const SkillSection = ({
   );
 };
 
-import Image from "../ui/Image";
 export const About = ({}) => {
   return (
     <div className="body-font text-gray-600">
