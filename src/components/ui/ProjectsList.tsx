@@ -138,26 +138,30 @@ export default function ProjectsList({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ type: "spring", stiffness: 250, damping: 25 }}
-            className="fixed bottom-3 left-1/2 -translate-x-1/2 z-40 flex gap-2 rounded-md bg-gray-800/90 p-2 shadow-lg backdrop-blur"
+            className="fixed bottom-3 inset-x-0 z-40"
           >
-            <AnimatePresence>
-              {minimized.map((p) => (
-                <motion.button
-                  key={p.title}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  onClick={() => restoreProject(p.title)}
-                  className="group flex items-center gap-2 rounded bg-gray-700/70 px-3 py-1 text-sm text-gray-100 hover:bg-gray-600"
-                  aria-label={`Restore project ${p.title}`}
-                >
-                  <span className="h-3 w-3 rounded-full bg-yellow-400 group-hover:bg-green-400 transition-colors" />
-                  <span className="truncate max-w-[12ch]">{p.title}</span>
-                </motion.button>
-              ))}
-            </AnimatePresence>
+            <div className="custom-screen">
+              <div className="flex w-max gap-2 rounded-md bg-gray-800/90 p-2 shadow-lg backdrop-blur">
+                <AnimatePresence>
+                  {minimized.map((p) => (
+                    <motion.button
+                      key={p.title}
+                      layout
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      onClick={() => restoreProject(p.title)}
+                      className="group flex items-center gap-2 rounded bg-gray-700/70 px-3 py-1 text-sm text-gray-100 hover:bg-gray-600"
+                      aria-label={`Restore project ${p.title}`}
+                    >
+                      <span className="h-3 w-3 rounded-full bg-yellow-400 group-hover:bg-green-400 transition-colors" />
+                      <span className="truncate max-w-[12ch]">{p.title}</span>
+                    </motion.button>
+                  ))}
+                </AnimatePresence>
+              </div>
+            </div>
           </motion.div>
         ) : null}
       </AnimatePresence>
