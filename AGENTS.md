@@ -1,0 +1,20 @@
+Agent Guide for DevPortfolioV3
+- Build: `pnpm build` (runs `build:img` then `astro build`).
+- Dev: `pnpm dev` (Astro dev server). Preview: `pnpm preview`.
+- Images: `pnpm build:img` optimize; `pnpm clean:img` removes `public/images/*`.
+- Lint/Format: use Prettier + `prettier-plugin-astro`; run `npx prettier -w .`.
+- Tests: none configured; prefer Vitest + RTL + jsdom if adding.
+- Single test: `pnpm vitest path/to/file.test.ts`; by name: `pnpm vitest -t "test name"`.
+- Imports: external first, then local; keep relative paths (no tsconfig paths).
+- Exports: prefer named; default OK for single‑component files and pages.
+- Types: TS strict via `astro/tsconfigs/strict`; avoid `any` and `@ts-ignore`.
+- Props: type props via interfaces; use `ReactNode` for `children`.
+- Naming: Components PascalCase; vars/functions camelCase; constants UPPER_SNAKE_CASE.
+- Files: Component files PascalCase (`Button.tsx`); utilities may be camelCase.
+- Styling: Tailwind only; compose classes with `cn` from `lib/tailwindcss`.
+- Accessibility: include correct `aria-*`, `role`; link buttons use `<a>`/`button` appropriately.
+- Error handling: fail‑soft in UI; guard null/undefined; never throw in render.
+- Astro: keep islands small; `.astro` pages use React components for interactivity.
+- Formatting: run Prettier before commits; keep import order stable.
+- Cursor/Copilot rules: none present in `.cursor/` or `.github/`.
+- Node: use `pnpm`; lockfile is `pnpm-lock.yaml`; avoid npm/yarn unless intentional.

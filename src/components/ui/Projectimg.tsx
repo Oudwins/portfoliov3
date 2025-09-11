@@ -18,7 +18,6 @@ export default ({
   [x: string]: any;
 }) => {
   const [name, extension] = src.split(".");
-  console.log(src);
   const breakpoints = [300, 640, 768, 1024, 1280, 1536];
   breakpoints.length = breakpoints.findIndex((bp) => bp === maxWidth) + 1;
   const onlyDefaultExtension = ["gif", "svg"];

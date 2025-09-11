@@ -19,6 +19,7 @@ export default function FrontendProject({
   align = "left",
   t,
   deleteProject,
+  minimizeProject,
 }: {
   children: ReactNode;
   project: BrowserProjectData;
@@ -27,12 +28,31 @@ export default function FrontendProject({
     more: string;
   };
   deleteProject: (title: string) => void;
+  minimizeProject: (title: string) => void;
 }) {
   const [currentView, setCurrentView] = useState<ResponsiveViews>(
     project.imgs.default ? project.imgs.default : "desktop"
   );
   const [isLoading, setIsloading] = useState(false);
   const [isFullScreen, setFullScreen] = useState(false);
+  const projectId = `project-${project.title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")}`;
+
+  useEffect(() => {
+    if (!isFullScreen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setFullScreen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isFullScreen]);
   const views = {
     desktop: (
       <svg
@@ -93,16 +113,31 @@ export default function FrontendProject({
     deleteProject(project.title);
   }
 
+  function minimizeSelf() {
+    minimizeProject(project.title);
+  }
+
   return (
-    <div className="">
-      <div className="px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
+    <div id={projectId} className="">
+      <div className={`px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16 ${
+        isFullScreen ? "fixed inset-0 z-50 overflow-y-auto relative" : ""
+      }`}>
+        {isFullScreen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-black/70"
+          />
+        )}
         <div
           className={
             isFullScreen
-              ? "grid grid-cols-1 gap-12"
+              ? "relative z-10 mx-auto max-w-6xl grid grid-cols-1 gap-12 py-8"
               : "grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16"
           }
         >
+
           {/* IMAGE/Macbook Browser */}
           <div
             className={align === "left" && !isFullScreen ? "lg:order-last" : ""}
@@ -133,7 +168,7 @@ export default function FrontendProject({
                     width: "1.1rem",
                     height: "1.1rem",
                   }}
-                  onClick={deleteSelf}
+                  onClick={minimizeSelf}
                 ></button>
                 <button
                   className="rounded-full bg-green-500 transition-all hover:bg-green-400"
@@ -142,6 +177,7 @@ export default function FrontendProject({
                     height: "1.1rem",
                   }}
                   onClick={() => setFullScreen(!isFullScreen)}
+                  aria-label={isFullScreen ? "Exit full screen" : "Enter full screen"}
                 ></button>
               </div>
 
@@ -216,7 +252,7 @@ export default function FrontendProject({
 
 export type BreakPoint = 300 | 640 | 768 | 1024 | 1536;
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 function ProjectImage({
   src,
