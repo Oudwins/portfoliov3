@@ -1,6 +1,6 @@
 import type { Skill } from "../../../i18n/ui";
 import { SkillList } from "../Skills";
-import { type ReactNode, useState, useEffect } from "react";
+import { type ReactNode, useState, useEffect, useRef } from "react";
 import type {
   Categories,
   BrowserProjectData,
@@ -39,6 +39,7 @@ export default function FrontendProject({
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "")}`;
+  const cardRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!isFullScreen) return;
@@ -119,34 +120,34 @@ export default function FrontendProject({
 
   return (
     <div id={projectId} className="">
-      <div className={`px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16 ${
-        isFullScreen ? "fixed inset-0 z-50 overflow-y-auto relative" : ""
-      }`}>
-        {isFullScreen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/70"
-          />
-        )}
+      <motion.div
+        ref={cardRef}
+        layout
+        className={`px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16 ${
+          isFullScreen ? "fixed inset-0 z-50 overflow-y-auto" : ""
+        }`}
+        transition={{ type: "spring", stiffness: 260, damping: 30 }}
+      >
         <div
           className={
             isFullScreen
-              ? "relative z-10 mx-auto max-w-6xl grid grid-cols-1 gap-12 py-8"
+              ? "w-full grid grid-cols-1 gap-6 py-4 sm:py-8"
               : "grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16"
           }
         >
-
           {/* IMAGE/Macbook Browser */}
           <div
-            className={align === "left" && !isFullScreen ? "lg:order-last" : ""}
+            className={`${
+              align === "left" && !isFullScreen ? "lg:order-last" : ""
+            } ${isFullScreen ? "lg:order-none" : ""}`}
           >
             {/* BROWSER BAR */}
-            <div
-              className="flex items-center justify-between rounded-t-xl bg-gray-700 px-3"
+            <motion.div
+              layout
+              className={
+                "flex items-center justify-between rounded-t-xl bg-gray-700 px-3"
+              }
               style={{
-                // background: "#474747",
                 boxShadow: "0 7px 7px -5px rgba(0,0,0,.21)",
                 paddingTop: "0.65rem",
                 paddingBottom: "0.65rem",
@@ -177,7 +178,9 @@ export default function FrontendProject({
                     height: "1.1rem",
                   }}
                   onClick={() => setFullScreen(!isFullScreen)}
-                  aria-label={isFullScreen ? "Exit full screen" : "Enter full screen"}
+                  aria-label={
+                    isFullScreen ? "Exit full screen" : "Enter full screen"
+                  }
                 ></button>
               </div>
 
@@ -204,13 +207,15 @@ export default function FrontendProject({
                   );
                 })}
               </div>
-            </div>
+            </motion.div>
             {/* <div className="relative h-64 overflow-hidden border-x-2 border-b-2 border-gray-700 sm:h-80 lg:h-full"> */}
             {/* TESTING */}
-            <div
+            <motion.div
+              layout
               className={`border-x-2 border-b-2 border-gray-700 relative overflow-hidden ${
-                isFullScreen ? "h-[80vh]" : "h-64 sm:h-80  lg:h-[80%]"
+                isFullScreen ? "h-[92vh]" : "h-64 sm:h-80 lg:h-[80%]"
               }`}
+              transition={{ type: "spring", stiffness: 260, damping: 30 }}
             >
               {project.disableScrollImage ? (
                 <Image
@@ -240,12 +245,14 @@ export default function FrontendProject({
                   <LoadingSpinner className="h-10 w-10"></LoadingSpinner>
                 </div>
               )}
-            </div>
+            </motion.div>
           </div>
           {/* CONTENT */}
-          <ProjectContent project={project}>{children}</ProjectContent>
+          {!isFullScreen && (
+            <ProjectContent project={project}>{children}</ProjectContent>
+          )}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
