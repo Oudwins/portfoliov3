@@ -43,14 +43,17 @@ export default function FrontendProject({
 
   useEffect(() => {
     if (!isFullScreen) return;
-    const prevOverflow = document.body.style.overflow;
+    const prevBodyOverflow = document.body.style.overflow;
+    const prevHtmlOverflow = document.documentElement.style.overflow;
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setFullScreen(false);
     };
     window.addEventListener("keydown", onKeyDown);
     return () => {
-      document.body.style.overflow = prevOverflow;
+      document.body.style.overflow = prevBodyOverflow;
+      document.documentElement.style.overflow = prevHtmlOverflow;
       window.removeEventListener("keydown", onKeyDown);
     };
   }, [isFullScreen]);
@@ -124,7 +127,7 @@ export default function FrontendProject({
         ref={cardRef}
         layout
         className={`px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16 ${
-          isFullScreen ? "fixed inset-0 z-50 overflow-y-auto" : ""
+          isFullScreen ? "fixed inset-0 z-50 overflow-hidden bg-white" : ""
         }`}
         transition={{ type: "spring", stiffness: 260, damping: 30 }}
       >
