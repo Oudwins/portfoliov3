@@ -216,7 +216,7 @@ export default function FrontendProject({
             <motion.div
               layout
               className={`border-x-2 border-b-2 border-gray-700 relative overflow-hidden ${
-                isFullScreen ? "h-[92vh]" : "h-64 sm:h-80 lg:h-[80%]"
+                isFullScreen ? "h-[80vh]" : "h-64 sm:h-80 lg:h-[80%]"
               }`}
               transition={{ type: "spring", stiffness: 260, damping: 30 }}
             >
