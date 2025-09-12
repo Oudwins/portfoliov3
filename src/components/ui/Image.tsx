@@ -15,9 +15,20 @@ export default ({
 }) => {
   const [name, extension] = src.split(".");
 
+  // For SVGs, the optimizer outputs non-suffixed files (e.g., name.svg)
+  if (extension === "svg") {
+    return (
+      <img
+        src={`/images/${name}.${extension}`}
+        loading="lazy"
+        alt={alt}
+        {...imgProps}
+      />
+    );
+  }
+
   const breakpoints = [300, 640, 768, 1024, 1280, 1536];
   breakpoints.length = breakpoints.findIndex((bp) => bp === maxWidth) + 1;
-  const onlyDefaultExtension = ["gif", "svg"];
 
   const webpSrcSet = breakpoints
     .map((bp) => `/images/${name}-${bp}.webp ${bp}w`)

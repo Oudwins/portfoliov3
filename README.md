@@ -10,6 +10,8 @@ Add experience section?
 
 something to follow the cursor around (light)
 
+Add a record & replay button to the header. So you can create a pattern then play it back
+
 ## TO FIX
 
 - Ugly animation for website view on hover end

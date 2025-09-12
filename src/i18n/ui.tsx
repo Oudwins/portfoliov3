@@ -136,7 +136,8 @@ export interface BaseProjectData {
   tecnologies: Skill[];
   btns: { t: string; href: string }[];
 }
-export interface BrowserProjectData extends BaseProjectData {
+export interface WebsiteAsset {
+  type: "website";
   imgs: {
     alt?: string;
     default?: ResponsiveViews;
@@ -147,10 +148,16 @@ export interface BrowserProjectData extends BaseProjectData {
   disableScrollImage?: boolean;
 }
 
-export interface ImageProjectData extends BaseProjectData {
+export interface ImageAsset {
+  type: "image";
   img: string;
 }
-export type ProjectData = BrowserProjectData | ImageProjectData;
+
+export type ProjectAsset = WebsiteAsset | ImageAsset;
+
+export interface ProjectData extends BaseProjectData {
+  asset: ProjectAsset;
+}
 export const Projects: ProjectData[] = [
   {
     title: "Ridaly Hosting & Website Builder",
@@ -184,11 +191,14 @@ export const Projects: ProjectData[] = [
         href: "https://app.ridaly.com/",
       },
     ],
-    imgs: {
-      alt: "Ridaly Digital Website Hosting Application",
-      desktop: "project_showcase_ridalyhosting-desktop.jpeg",
-      tablet: "project_showcase_ridalyhosting-tablet.jpeg",
-      phone: "project_showcase_ridalyhosting-phone.jpeg",
+    asset: {
+      type: "website",
+      imgs: {
+        alt: "Ridaly Digital Website Hosting Application",
+        desktop: "project_showcase_ridalyhosting-desktop.jpeg",
+        tablet: "project_showcase_ridalyhosting-tablet.jpeg",
+        phone: "project_showcase_ridalyhosting-phone.jpeg",
+      },
     },
   },
   {
@@ -205,7 +215,7 @@ export const Projects: ProjectData[] = [
         href: "https://github.com/Oudwins/tailwind-merge-go",
       },
     ],
-    img: "tailwind-merge.svg",
+    asset: { type: "image", img: "tailwind-merge.svg" },
   },
   {
     title: "DStyler - Dynamic Stylesheets",
@@ -226,9 +236,12 @@ export const Projects: ProjectData[] = [
         href: "https://www.npmjs.com/package/dstyler",
       },
     ],
-    imgs: {
-      alt: "View of DStyler's npm page. Dstyler is a package for working with dynamic stylesheets powered by postcss. Create, Remove, Update and Delete css styles dynamically.",
-      desktop: "project_showcase_dstyler-desktop.jpeg",
+    asset: {
+      type: "website",
+      imgs: {
+        alt: "View of DStyler's npm page. Dstyler is a package for working with dynamic stylesheets powered by postcss. Create, Remove, Update and Delete css styles dynamically.",
+        desktop: "project_showcase_dstyler-desktop.jpeg",
+      },
     },
   },
   {
@@ -246,7 +259,7 @@ export const Projects: ProjectData[] = [
         href: "https://github.com/Oudwins/tailwind-merge-go",
       },
     ],
-    img: "redis.svg",
+    asset: { type: "image", img: "redis.svg" },
   },
   // {
   //   title: "Natours Travel",

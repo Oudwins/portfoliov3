@@ -1,17 +1,13 @@
-import type { Skill } from "../../../i18n/ui";
-import { SkillList } from "../Skills";
 import { type ReactNode, useState, useEffect, useRef } from "react";
 import type {
-  Categories,
-  BrowserProjectData,
+  BaseProjectData,
   ResponsiveViews,
+  WebsiteAsset,
 } from "../../../i18n/ui";
-import { Popover, PopoverContent, PopoverTrigger } from "../Popover";
-// import Projectimg from "../ui/Projectimg";
-import { ButtonLink } from "../Button";
-import Image from "../Image";
 import LoadingSpinner from "../loadingSpinner";
 import ProjectContent from "./ProjectContent";
+import ProjectAsset from "./ProjectAsset";
+import { motion } from "framer-motion";
 
 export default function FrontendProject({
   children,
@@ -22,7 +18,7 @@ export default function FrontendProject({
   minimizeProject,
 }: {
   children: ReactNode;
-  project: BrowserProjectData;
+  project: BaseProjectData & { asset: WebsiteAsset };
   align?: "left" | "right";
   t: {
     more: string;
@@ -31,7 +27,9 @@ export default function FrontendProject({
   minimizeProject: (title: string) => void;
 }) {
   const [currentView, setCurrentView] = useState<ResponsiveViews>(
-    project.imgs.default ? project.imgs.default : "desktop"
+    project.asset.type === "website" && project.asset.imgs.default
+      ? project.asset.imgs.default
+      : "desktop"
   );
   const [isLoading, setIsloading] = useState(false);
   const [isFullScreen, setFullScreen] = useState(false);
@@ -190,7 +188,8 @@ export default function FrontendProject({
               {/* Right buttons (responsiveness) */}
               <div className="flex space-x-2 text-gray-700">
                 {Object.entries(views).map(([view, icon], idx) => {
-                  return project.imgs[view as ResponsiveViews] ? (
+                  return project.asset.type === "website" &&
+                    project.asset.imgs[view as ResponsiveViews] ? (
                     <button
                       className={`flex items-center justify-center transition-all rounded p-1 ${
                         view === currentView
@@ -220,29 +219,12 @@ export default function FrontendProject({
               }`}
               transition={{ type: "spring", stiffness: 260, damping: 30 }}
             >
-              {project.disableScrollImage ? (
-                <Image
-                  //@ts-ignore IDK HOW TO FIX THIS
-                  src={project.imgs[currentView]}
-                  className="absolute top-0 min-h-full w-full object-cover"
-                  alt={project.imgs.alt || ""}
-                  maxWidth={currentView === "phone" ? 640 : undefined}
-                  onLoad={() => {
-                    setIsloading(false);
-                  }}
-                />
-              ) : (
-                <ProjectImage
-                  //@ts-ignore IDK HOW TO FIX THIS
-                  src={project.imgs[currentView]}
-                  className="absolute top-0 min-h-full w-full object-cover"
-                  alt={project.imgs.alt || ""}
-                  maxWidth={currentView === "phone" ? 640 : undefined}
-                  onLoad={() => {
-                    setIsloading(false);
-                  }}
-                />
-              )}
+              <ProjectAsset
+                asset={project.asset}
+                currentView={currentView}
+                className="absolute top-0 min-h-full w-full object-cover"
+                onLoad={() => setIsloading(false)}
+              />
               {isLoading && (
                 <div className="absolute inset-0">
                   <LoadingSpinner className="h-10 w-10"></LoadingSpinner>
@@ -257,84 +239,5 @@ export default function FrontendProject({
         </div>
       </motion.div>
     </div>
-  );
-}
-
-export type BreakPoint = 300 | 640 | 768 | 1024 | 1536;
-
-import { motion, AnimatePresence } from "framer-motion";
-
-function ProjectImage({
-  src,
-  sizes = "",
-  maxWidth = 1024,
-  className,
-  alt,
-  ...imgProps
-}: {
-  src: string;
-  sizes?: string;
-  alt: string;
-  className: string;
-  maxWidth?: BreakPoint;
-  [x: string]: any;
-}) {
-  const [name, extension] = src.split(".");
-  const breakpoints = [300, 640, 768, 1024, 1280, 1536];
-  breakpoints.length = breakpoints.findIndex((bp) => bp === maxWidth) + 1;
-  const onlyDefaultExtension = ["gif", "svg"];
-
-  const webpSrcSet = breakpoints
-    .map((bp) => `/images/${name}-${bp}.webp ${bp}w`)
-    .join(", ");
-  const defaultSrcSet = breakpoints
-    .map((bp) => `/images/${name}-${bp}.${extension} ${bp}w`)
-    .join(", ");
-
-  // disable mobile context menu
-  useEffect(() => {
-    const img = document.getElementById(src);
-    function swallowContextMenus(e: MouseEvent) {
-      e.preventDefault();
-    }
-    img?.addEventListener("contextmenu", swallowContextMenus);
-
-    return () => {
-      img?.removeEventListener("contextmenu", swallowContextMenus);
-    };
-  }, [src]);
-
-  return (
-    <picture id={src}>
-      <source type="image/webp" srcSet={webpSrcSet} sizes={sizes} />
-      <source
-        type={`image/${extension}`}
-        srcSet={defaultSrcSet}
-        sizes={sizes}
-      />
-      <motion.img
-        src={`/images/${name}-${breakpoints[0]}.${extension}`}
-        className={className}
-        loading="lazy"
-        alt={alt}
-        whileHover={{
-          y: "calc(-100% + 16rem)",
-          transition: {
-            type: "tween",
-            ease: "linear",
-            duration: 15,
-          },
-        }}
-        whileTap={{
-          y: "calc(-100% + 16rem)",
-          transition: {
-            type: "tween",
-            ease: "linear",
-            duration: 15,
-          },
-        }}
-        {...imgProps}
-      />
-    </picture>
   );
 }
