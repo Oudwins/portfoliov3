@@ -1,6 +1,7 @@
 import type { ResponsiveViews } from "../../../i18n/ui";
 import type { ProjectAsset as TProjectAsset } from "../../../i18n/ui";
 import Image from "../Image";
+import ScrollingImage from "./ScrollingImage";
 
 interface Props {
   asset: TProjectAsset;
@@ -35,12 +36,22 @@ export default function ProjectAsset({
   const maxWidth = viewToUse === "phone" ? 640 : undefined;
 
   return src ? (
-    <Image
-      src={src}
-      className={className}
-      alt={alt}
-      maxWidth={maxWidth}
-      onLoad={onLoad}
-    />
+    asset.disableScrollImage ? (
+      <Image
+        src={src}
+        className={className}
+        alt={alt}
+        maxWidth={maxWidth}
+        onLoad={onLoad}
+      />
+    ) : (
+      <ScrollingImage
+        src={src}
+        className={className}
+        alt={alt}
+        maxWidth={maxWidth}
+        onLoad={onLoad}
+      />
+    )
   ) : null;
 }

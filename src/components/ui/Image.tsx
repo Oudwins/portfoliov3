@@ -1,24 +1,30 @@
 export type BreakPoint = 300 | 640 | 768 | 1024 | 1536;
 
+type ImgProps = {
+  src: string;
+  sizes?: string;
+  alt: string;
+  maxWidth?: BreakPoint;
+  as?: any;
+  [x: string]: any;
+};
+
 export default ({
   src,
   sizes = "",
   maxWidth = 1024,
   alt,
+  as,
   ...imgProps
-}: {
-  src: string;
-  sizes?: string;
-  alt: string;
-  maxWidth?: BreakPoint;
-  [x: string]: any;
-}) => {
+}: ImgProps) => {
   const [name, extension] = src.split(".");
+
+  const Img: any = as ?? "img";
 
   // For SVGs, the optimizer outputs non-suffixed files (e.g., name.svg)
   if (extension === "svg") {
     return (
-      <img
+      <Img
         src={`/images/${name}.${extension}`}
         loading="lazy"
         alt={alt}
@@ -45,7 +51,7 @@ export default ({
         srcSet={defaultSrcSet}
         sizes={sizes}
       />
-      <img
+      <Img
         src={`/images/${name}-${breakpoints[0]}.${extension}`}
         loading="lazy"
         alt={alt}
