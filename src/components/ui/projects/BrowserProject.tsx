@@ -1,6 +1,6 @@
 import type { Skill } from "../../../i18n/ui";
 import { SkillList } from "../Skills";
-import { type ReactNode, useState, useEffect } from "react";
+import { type ReactNode, useState, useEffect, useRef } from "react";
 import type {
   Categories,
   BrowserProjectData,
@@ -19,6 +19,7 @@ export default function FrontendProject({
   align = "left",
   t,
   deleteProject,
+  minimizeProject,
 }: {
   children: ReactNode;
   project: BrowserProjectData;
@@ -27,12 +28,35 @@ export default function FrontendProject({
     more: string;
   };
   deleteProject: (title: string) => void;
+  minimizeProject: (title: string) => void;
 }) {
   const [currentView, setCurrentView] = useState<ResponsiveViews>(
     project.imgs.default ? project.imgs.default : "desktop"
   );
   const [isLoading, setIsloading] = useState(false);
   const [isFullScreen, setFullScreen] = useState(false);
+  const projectId = `project-${project.title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")}`;
+  const cardRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!isFullScreen) return;
+    const prevBodyOverflow = document.body.style.overflow;
+    const prevHtmlOverflow = document.documentElement.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setFullScreen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = prevBodyOverflow;
+      document.documentElement.style.overflow = prevHtmlOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isFullScreen]);
   const views = {
     desktop: (
       <svg
@@ -93,25 +117,40 @@ export default function FrontendProject({
     deleteProject(project.title);
   }
 
+  function minimizeSelf() {
+    minimizeProject(project.title);
+  }
+
   return (
-    <div className="">
-      <div className="px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
+    <div id={projectId} className="">
+      <motion.div
+        ref={cardRef}
+        layout
+        className={`px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16 ${
+          isFullScreen ? "fixed inset-0 z-50 overflow-hidden bg-white" : ""
+        }`}
+        transition={{ type: "spring", stiffness: 260, damping: 30 }}
+      >
         <div
           className={
             isFullScreen
-              ? "grid grid-cols-1 gap-12"
+              ? "w-full grid grid-cols-1 gap-6 py-4 sm:py-8"
               : "grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16"
           }
         >
           {/* IMAGE/Macbook Browser */}
           <div
-            className={align === "left" && !isFullScreen ? "lg:order-last" : ""}
+            className={`${
+              align === "left" && !isFullScreen ? "lg:order-last" : ""
+            } ${isFullScreen ? "lg:order-none" : ""}`}
           >
             {/* BROWSER BAR */}
-            <div
-              className="flex items-center justify-between rounded-t-xl bg-gray-700 px-3"
+            <motion.div
+              layout
+              className={
+                "flex items-center justify-between rounded-t-xl bg-gray-700 px-3"
+              }
               style={{
-                // background: "#474747",
                 boxShadow: "0 7px 7px -5px rgba(0,0,0,.21)",
                 paddingTop: "0.65rem",
                 paddingBottom: "0.65rem",
@@ -133,7 +172,7 @@ export default function FrontendProject({
                     width: "1.1rem",
                     height: "1.1rem",
                   }}
-                  onClick={deleteSelf}
+                  onClick={minimizeSelf}
                 ></button>
                 <button
                   className="rounded-full bg-green-500 transition-all hover:bg-green-400"
@@ -142,6 +181,9 @@ export default function FrontendProject({
                     height: "1.1rem",
                   }}
                   onClick={() => setFullScreen(!isFullScreen)}
+                  aria-label={
+                    isFullScreen ? "Exit full screen" : "Enter full screen"
+                  }
                 ></button>
               </div>
 
@@ -168,13 +210,15 @@ export default function FrontendProject({
                   );
                 })}
               </div>
-            </div>
+            </motion.div>
             {/* <div className="relative h-64 overflow-hidden border-x-2 border-b-2 border-gray-700 sm:h-80 lg:h-full"> */}
             {/* TESTING */}
-            <div
+            <motion.div
+              layout
               className={`border-x-2 border-b-2 border-gray-700 relative overflow-hidden ${
-                isFullScreen ? "h-[80vh]" : "h-64 sm:h-80  lg:h-[80%]"
+                isFullScreen ? "h-[80vh]" : "h-64 sm:h-80 lg:h-[80%]"
               }`}
+              transition={{ type: "spring", stiffness: 260, damping: 30 }}
             >
               {project.disableScrollImage ? (
                 <Image
@@ -204,19 +248,21 @@ export default function FrontendProject({
                   <LoadingSpinner className="h-10 w-10"></LoadingSpinner>
                 </div>
               )}
-            </div>
+            </motion.div>
           </div>
           {/* CONTENT */}
-          <ProjectContent project={project}>{children}</ProjectContent>
+          {!isFullScreen && (
+            <ProjectContent project={project}>{children}</ProjectContent>
+          )}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
 
 export type BreakPoint = 300 | 640 | 768 | 1024 | 1536;
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 function ProjectImage({
   src,
