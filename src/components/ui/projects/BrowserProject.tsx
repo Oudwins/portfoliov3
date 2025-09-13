@@ -3,7 +3,7 @@ import type {
   BaseProjectData,
   ResponsiveViews,
   WebsiteAsset,
-} from "../../../i18n/ui";
+} from "../../../data";
 import LoadingSpinner from "../loadingSpinner";
 import ProjectContent from "./ProjectContent";
 import ProjectAsset from "./ProjectAsset";

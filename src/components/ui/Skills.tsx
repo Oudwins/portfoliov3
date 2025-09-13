@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "../../lib/tailwindcss";
-import type { Skill } from "../../i18n/ui";
+import type { Skill } from "../../data";
 
 export const SkillItem = ({ skill }: { skill: Skill }) => {
   return (

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import BrowserProject from "./projects/BrowserProject";
-import type { ProjectData, WebsiteAsset, ImageAsset } from "../../i18n/ui";
+import type { ProjectData, WebsiteAsset, ImageAsset } from "../../data";
 import ProjectAsset from "./projects/ProjectAsset";
 import ProjectContent from "./projects/ProjectContent";
+import ReactMarkdown from "react-markdown";
 
 function isImageProject(
   project: ProjectData
@@ -56,7 +57,7 @@ export default function ProjectsList({
         // Find where to insert among currently visible, based on original order
         let insertAt = newList.length;
         for (let i = 0, seen = 0; i < projectList.length; i++) {
-          const t = projectList[i].title;
+          const t = projectList[i]!.title;
           const existingIdx = newList.findIndex((p) => p.title === t);
           if (t === title) {
             insertAt = seen;
@@ -96,11 +97,9 @@ export default function ProjectsList({
               </div>
 
               <ProjectContent project={p}>
-                {p.desc ? (
-                  <div className="space-y-2">
-                    {p.desc.map((el, idx) => {
-                      return <p key={idx}>{el}</p>;
-                    })}
+                {p.md ? (
+                  <div className="space-y-2 text-justify font-light text-gray-800">
+                    <ReactMarkdown>{p.md}</ReactMarkdown>
                   </div>
                 ) : null}
               </ProjectContent>
@@ -120,11 +119,9 @@ export default function ProjectsList({
           project={p}
           align={idx % 2 ? "right" : "left"}
         >
-          {p.desc ? (
-            <div className="space-y-2">
-              {p.desc.map((el, idx) => {
-                return <p key={idx}>{el}</p>;
-              })}
+          {p.md ? (
+            <div className="space-y-2 text-justify font-light text-gray-800">
+              <ReactMarkdown>{p.md}</ReactMarkdown>
             </div>
           ) : null}
         </BrowserProject>

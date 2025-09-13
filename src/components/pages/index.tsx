@@ -1,5 +1,5 @@
 import { ButtonLink, Button } from "../ui/Button";
-import type { Skill } from "../../i18n/ui";
+import type { Skill } from "../../data";
 import { SkillList } from "../ui/Skills";
 
 // interface HeroText {
