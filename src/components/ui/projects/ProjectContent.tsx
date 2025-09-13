@@ -1,4 +1,4 @@
-import type { ProjectData } from "../../../i18n/ui";
+import type { ProjectData } from "../../../data";
 import { ButtonLink } from "../Button";
 import { Popover, PopoverContent, PopoverTrigger } from "../Popover";
 import { SkillList } from "../Skills";
@@ -60,9 +60,9 @@ export default function ProjectContent({
       <div className="text-justify font-light text-gray-800">{children}</div>
 
       <div className="my-8 flex flex-col gap-5 sm:flex-row">
-        <ButtonLink href={project.btns[0].href} target="_blank">
+        {project.btns[0] && <ButtonLink href={project.btns[0].href} target="_blank">
           {project.btns[0].t}
-        </ButtonLink>
+        </ButtonLink>}
 
         {project.btns[1] ? (
           <ButtonLink

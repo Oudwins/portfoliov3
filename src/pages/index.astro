@@ -9,8 +9,22 @@ import {
 import Hero from "../components/pages/hero.astro";
 // import Project from "../components/ui/Project";
 import ProjectsList from "../components/ui/ProjectsList";
-import { SkillList as sk, Projects } from "../i18n/ui";
+import { SkillList as sk, type ProjectData } from "../data";
 import { SEO } from "astro-seo";
+import { getProjects } from "../content.config";
+
+const list = await getProjects();
+const projectList = list.map(
+  (entry) =>
+    ({
+      title: entry.data.title,
+      category: entry.data.category,
+      tecnologies: entry.data.tecnologies.map((k) => sk[k as keyof typeof sk]),
+      btns: entry.data.btns,
+      asset: entry.data.asset,
+      md: entry.body,
+    }) as ProjectData
+);
 ---
 
 <Layout>
@@ -92,7 +106,7 @@ import { SEO } from "astro-seo";
           >jects
         </h2>
       </div>
-      <ProjectsList client:only projectList={Projects} />
+      <ProjectsList client:only projectList={projectList} />
     </section>
 
     <!-- ABOUT -->

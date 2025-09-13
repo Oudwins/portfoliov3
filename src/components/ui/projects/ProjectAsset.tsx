@@ -1,5 +1,5 @@
-import type { ResponsiveViews } from "../../../i18n/ui";
-import type { ProjectAsset as TProjectAsset } from "../../../i18n/ui";
+import type { ResponsiveViews } from "../../../data";
+import type { ProjectAsset as TProjectAsset } from "../../../data";
 import Image from "../Image";
 import ScrollingImage from "./ScrollingImage";
 

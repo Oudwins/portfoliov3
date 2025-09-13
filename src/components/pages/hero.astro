@@ -1,4 +1,5 @@
 ---
+
 ---
 
 <section
@@ -70,12 +71,14 @@
   const tile = document.querySelector(".tile");
 
   if (window.innerWidth < 768) {
-    container.style["grid-template-columns"] = "repeat(20, 1fr)";
+    // @ts-expect-error
+    container!.style["grid-template-columns"] = "repeat(20, 1fr)";
   } else {
-    container.style["grid-template-columns"] = "repeat(40, 1fr)";
+    // @ts-expect-error
+    container!.style["grid-template-columns"] = "repeat(40, 1fr)";
   }
 
-  const tiles = [];
+  const tiles: any[] = [];
 
   let startTime = Date.now();
 
@@ -87,11 +90,11 @@
     while (!isVisible && tries < 100) {
       const randomIndex = Math.floor(Math.random() * tiles.length);
       const tile = tiles[randomIndex];
-      isVisible = isElementInViewport(tile);
+      isVisible = isElementInViewport(tile!);
       if (isVisible) {
-        tile.classList.add("tile-hover");
+        tile!.classList.add("tile-hover");
         setTimeout(() => {
-          tile.classList.remove("tile-hover");
+          tile!.classList.remove("tile-hover");
         }, 50);
       }
       tries++;
@@ -112,7 +115,7 @@
     );
   }
 
-  function isElementPartiallyInViewport(el) {
+  function isElementPartiallyInViewport(el: any) {
     const rect = el.getBoundingClientRect();
 
     return (
@@ -126,7 +129,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < totalCubes; i++) {
       const n = tile?.cloneNode();
-      container.appendChild(n);
+      container!.appendChild(n!);
       tiles.push(n);
     }
     const interval = setInterval(() => {
